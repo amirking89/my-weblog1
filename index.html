@@ -296,7 +296,168 @@
             }
         }
     </style>
-
+    <style>
+        .comments {
+            padding: 40px 0;
+            background: #fff;
+        }
+        
+        .comments h2 {
+            margin-bottom: 20px;
+        }
+        
+        #comment-form textarea {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        #comment-form button {
+            background: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #comment-list {
+            margin-top: 20px;
+        }
+        
+        .comment-item {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .rating {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .star:hover,
+        .star:hover~.star {
+            color: #f7c08a;
+        }
+        
+        @media (max-width: 768px) {
+            .comments textarea {
+                font-size: 0.9rem;
+            }
+            .star {
+                font-size: 1.5rem;
+            }
+            #comment-list {
+                font-size: 0.9rem;
+            }
+        }
+        
+        .videos {
+            padding: 40px 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        
+        .videos h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        #video-display iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 340px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+         ::-webkit-scrollbar {
+            width: 14px;
+            /* عرض نوار اسکرول */
+            height: 14px;
+            /* ارتفاع نوار اسکرول افقی */
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
+            /* گرادینت برای پس‌زمینه نوار اسکرول */
+            border-radius: 10px;
+            /* گوشه‌های گرد */
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+            /* سایه داخلی برای عمق */
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff4b5c, #e63946, #ff4b5c);
+            /* گرادینت چندرنگ برای نوار اسکرول */
+            border-radius: 10px;
+            /* گوشه‌های گرد */
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            /* سایه داخلی برای نمای بهتر */
+            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            /* انیمیشن برای تغییرات رنگ و سایه */
+        }
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #e63946, #ff4b5c);
+            /* تغییر رنگ در حالت Hover */
+            box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.4);
+            /* تغییر سایه در حالت Hover */
+            cursor: pointer;
+            /* نشانگر دست در حالت Hover */
+        }
+        
+         ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(45deg, #c52834, #ff4b5c);
+            /* تغییر رنگ در حالت Active */
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.6);
+            /* سایه تیره‌تر در حالت Active */
+        }
+        
+         ::-webkit-scrollbar-corner {
+            background: #ff4b5c;
+            /* رنگ گوشه اسکرول */
+        }
+        /* Custom Scrollbar for Firefox */
+        
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #ff4b5c #f2f2f2;
+            /* رنگ نوار اسکرول و پس‌زمینه برای فایرفاکس */
+        }
+        /* Scrollbar Animation */
+        
+        @keyframes scroll-glow {
+            0% {
+                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+            }
+            100% {
+                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            animation: scroll-glow 1.5s ease-in-out infinite;
+            /* افکت انیمیشن برای نوار اسکرول */
+        }
+    </style>
 </head>
 
 <body>
@@ -352,8 +513,52 @@
         </div>
     </footer>
 
-    <button id="langBtn">Switch to Persian</button>
+
+    </section>
+    <div class="rating">
+        <span class="star" data-value="5">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="1">&#9733;</span>
+    </div>
+
+    <section id="videos" class="videos">
+        <div class="container">
+            <h2>Featured Video</h2>
+            <div id="video-display" style="margin-top: 20px; text-align: center;">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/eA0lHNZ1KCA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+
+
+
     <script>
+        // Add smooth scroll to all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll for bio section
+        window.addEventListener('scroll', function() {
+            const bioSection = document.querySelector('.bio-section');
+            const sectionPos = bioSection.getBoundingClientRect().top;
+            const screenPos = window.innerHeight / 1.3;
+
+            if (sectionPos < screenPos) {
+                bioSection.classList.add('appear');
+            }
+        });
         // Day-Night Toggle Functionality
         const toggle = document.getElementById('toggle');
         toggle.addEventListener('click', () => {
@@ -395,7 +600,35 @@
                 isEnglish = true;
             }
         });
+        const commentForm = document.getElementById('comment-form');
+        const commentList = document.getElementById('comment-list');
+
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const commentText = document.getElementById('comment-text').value;
+            if (commentText) {
+                const newComment = document.createElement('div');
+                newComment.className = 'comment-item';
+                newComment.textContent = commentText;
+                commentList.appendChild(newComment);
+                commentForm.reset();
+            }
+        });
+        const stars = document.querySelectorAll('.star');
+        const ratingResult = document.getElementById('rating-result');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                stars.forEach(s => s.style.color = '#ccc');
+                star.style.color = '#f7c08a';
+                const rating = star.getAttribute('data-value');
+                ratingResult.textContent = `Your rating: ${rating}`;
+            });
+        });
     </script>
+
+
+
 </body>
 
 </html>

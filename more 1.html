@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Rise from Ashes</title>
+    <style>
+        /* تنظیمات کلی */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        /* هدر */
+        
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin-right: 20px;
+        }
+        
+        nav ul li {
+            margin-left: 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f7c08a;
+        }
+        /* محتوای صفحه */
+        
+        .container {
+            max-width: 800px;
+            margin: 100px auto 50px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #ff5733;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: #444;
+            margin-top: 20px;
+        }
+        
+        p {
+            text-align: justify;
+            font-size: 1.1rem;
+            margin: 15px 0;
+        }
+        
+        .message {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f7f7f7;
+            border-left: 5px solid #ff5733;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        .videos {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .videos iframe {
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            height: 340px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+        /* تنظیمات برای صفحه‌نمایش‌های موبایل */
+        
+        @media (max-width: 768px) {
+            /* تنظیمات هدر برای صفحه‌های کوچکتر */
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+            nav ul {
+                display: block;
+                margin: 0;
+            }
+            nav ul li {
+                margin-bottom: 10px;
+            }
+            nav ul li a {
+                font-size: 1.2rem;
+            }
+            /* تنظیمات محتوای صفحه برای صفحه‌نمایش کوچک */
+            .container {
+                margin: 20px;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            /* تنظیمات ویدئو برای صفحه‌های کوچک */
+            .videos iframe {
+                width: 100%;
+                height: 250px;
+            }
+            /* تنظیمات فوتر برای صفحه‌های کوچکتر */
+            footer {
+                padding: 10px 0;
+            }
+        }
+    </style>
+    <style>
+        /* Global Styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background: #f4f4f4;
+            color: #333;
+            scroll-behavior: smooth;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        
+        body.night-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        /* Header */
+        
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-right: 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f7c08a;
+        }
+        /* Improved Day-Night Toggle */
+        
+        .toggle {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background-color: #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: background-color 0.5s;
+        }
+        
+        .toggle .circle {
+            width: 21px;
+            height: 21px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.5s;
+        }
+        
+        body.night-mode {
+            background-color: #333;
+            color: #dcdcdc;
+            /* تغییر رنگ متن به خاکی روشن برای خوانایی بیشتر */
+        }
+        
+        body.night-mode header,
+        body.night-mode footer {
+            background-color: #222;
+            /* رنگ پس‌زمینه هدر و فوتر کمی تیره‌تر */
+        }
+        
+        body.night-mode .toggle {
+            background-color: #f7c08a;
+        }
+        
+        body.night-mode .toggle .circle {
+            transform: translateX(25px);
+        }
+        /* تنظیم رنگ‌های دیگر برای خوانایی بهتر در حالت شب */
+        
+        body.night-mode .post {
+            background: #555;
+            /* رنگ پس‌زمینه پست‌ها در حالت شب */
+            color: #e0e0e0;
+            /* رنگ متن پست‌ها در حالت شب */
+        }
+        
+        body.night-mode .message {
+            background: #444;
+            color: #e0e0e0;
+            /* رنگ متن پیام در حالت شب */
+        }
+        
+        body.night-mode nav ul li a {
+            color: #f7c08a;
+            /* رنگ لینک‌ها در حالت شب */
+        }
+        
+        body.night-mode .read-more {
+            background: #f7c08a;
+            color: #333;
+        }
+        
+        body.night-mode .read-more:hover {
+            background: #333;
+            color: #f7c08a;
+        }
+        /* Footer */
+        
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        /* Responsive Styles */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 14px;
+            }
+            header {
+                flex-direction: column;
+                padding: 10px;
+                text-align: center;
+            }
+        }
+        
+         ::-webkit-scrollbar {
+            width: 14px;
+            /* عرض نوار اسکرول */
+            height: 14px;
+            /* ارتفاع نوار اسکرول افقی */
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
+            /* گرادینت برای پس‌زمینه نوار اسکرول */
+            border-radius: 10px;
+            /* گوشه‌های گرد */
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+            /* سایه داخلی برای عمق */
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff4b5c, #e63946, #ff4b5c);
+            /* گرادینت چندرنگ برای نوار اسکرول */
+            border-radius: 10px;
+            /* گوشه‌های گرد */
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            /* سایه داخلی برای نمای بهتر */
+            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            /* انیمیشن برای تغییرات رنگ و سایه */
+        }
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #e63946, #ff4b5c);
+            /* تغییر رنگ در حالت Hover */
+            box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.4);
+            /* تغییر سایه در حالت Hover */
+            cursor: pointer;
+            /* نشانگر دست در حالت Hover */
+        }
+        
+         ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(45deg, #c52834, #ff4b5c);
+            /* تغییر رنگ در حالت Active */
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.6);
+            /* سایه تیره‌تر در حالت Active */
+        }
+        
+         ::-webkit-scrollbar-corner {
+            background: #ff4b5c;
+            /* رنگ گوشه اسکرول */
+        }
+        /* Custom Scrollbar for Firefox */
+        
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #ff4b5c #f2f2f2;
+            /* رنگ نوار اسکرول و پس‌زمینه برای فایرفاکس */
+        }
+        /* Scrollbar Animation */
+        
+        @keyframes scroll-glow {
+            0% {
+                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+            }
+            100% {
+                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            animation: scroll-glow 1.5s ease-in-out infinite;
+            /* افکت انیمیشن برای نوار اسکرول */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- هدر -->
+    <header>
+        <div class="logo">My Blog</div>
+        <nav>
+            <ul>
+                <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank">Spotify</a></li>
+                <li><a href="https://t.me/Dark_Night_123" target="_blank">Telegram</a></li>
+            </ul>
+            <div class="toggle" id="toggle">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- محتوا -->
+    <div class="container">
+        <h1>The Rise from Ashes</h1>
+        <h2>Story:</h2>
+        <p>Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers
+            of dirt and debris.</p>
+        <p>At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest. It realized the mud was not its grave—it was its trial.</p>
+        <p>With every ounce of strength, the phoenix clawed and burned through the layers of dirt. Each struggle made its wings stronger, its fire brighter. Finally, it burst out of the earth in a dazzling explosion of flames, soaring into the skies with
+            a fiery glow that could be seen for miles.</p>
+
+        <h2>داستان:</h2>
+        <p>روزی ققنوسی فروتن در غاری تاریک و تنها گرفتار شده بود. آتش قلبش خاموش شده بود و احساس می‌کرد دیگر نمی‌تواند برخیزد. روزی طوفانی سهمگین شروع شد و غار را با باران و گل و لای پر کرد. ققنوس زیر لایه‌هایی از خاک و آوار دفن شد.</p>
+        <p>در ابتدا فکر کرد: "این پایان است." اما وقتی طوفان آرام شد، جرقه‌ای در سینه‌اش روشن شد. فهمید که گل و لای قبرش نیست، بلکه آزمونش است.</p>
+        <p>با تمام توانش، ققنوس شروع به پنجه کشیدن و سوزاندن لایه‌های خاک کرد. هر تلاش، بال‌هایش را قوی‌تر و آتشش را روشن‌تر می‌کرد. سرانجام، در انفجاری خیره‌کننده از شعله‌ها، از زمین بیرون آمد و با نوری سوزان به آسمان اوج گرفت، نوری که از مایل‌ها دورتر
+            دیده می‌شد.</p>
+
+        <div class="message">
+            Message: Every obstacle can be a new beginning if you keep the fire of hope alive in your heart.<br> پیام داستان: هر مانعی می‌تواند نقطه آغاز دوباره شما باشد، اگر آتش امید را در قلب خود روشن نگه دارید.
+        </div>
+    </div>
+
+    <!-- ویدئو -->
+    <div class="videos">
+        <iframe src="https://www.youtube.com/embed/eA0lHNZ1KCA" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <p>Designed and developed by AMIR KING - 2024</p>
+    </footer>
+    <script>
+        // Smooth scroll for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Day-Night Toggle Functionality
+        const toggle = document.getElementById('toggle');
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+        });
+
+        // Example of animation on scroll (if required)
+        window.addEventListener('scroll', function() {
+            const bioSection = document.querySelector('.bio-section');
+            if (!bioSection) return; // Skip if .bio-section doesn't exist
+
+            const sectionPos = bioSection.getBoundingClientRect().top;
+            const screenPos = window.innerHeight / 1.3;
+
+            if (sectionPos < screenPos) {
+                bioSection.classList.add('appear');
+            }
+        });
+    </script>
+</body>
+
+</html>

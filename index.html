@@ -496,14 +496,23 @@
         <div class="container">
             <h2 id="blog-heading">Latest Posts</h2>
             <div class="post">
-                <h3 id="post-title-1">nothing...1</h3>
-                <p id="post-summary-1">Whenever something or a story or a text comes to my mind, I will write here for you.</p>
-                <a href="#" class="read-more" id="read-more-1">Read More</a>
+                <h3 id="post-title-1">The Rise from Ashes</h3>
+                <p id="post-summary-1">
+                    Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers of dirt
+                    and debris. At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest. It realized the mud was not its grave—it was its trial. With every ounce of strength, the phoenix clawed and
+                    burned through the layers of dirt. Each struggle made its wings stronger, its fire brighter. Finally, it burst out of the earth in a dazzling explosion of flames, soaring into the skies with a fiery glow that could be seen for miles.
+
+                </p>
+                <a href="more 1.html" class="read-more" id="read-more-1">Read More</a>
             </div>
             <div class="post">
-                <h3 id="post-title-2">nothing...2</h3>
-                <p id="post-summary-2">I can't think of anything right now</p>
-                <a href="#" class="read-more" id="read-more-2">Read More</a>
+                <h3 id="post-title-2">The Farmer's Donkey</h3>
+                <p id="post-summary-2">One day, a farmer's donkey fell into an old well. The farmer tried to rescue him but realized it was too hard. Sadly, he decided the donkey was too old and the well needed to be filled anyway. He called his neighbors and asked them to
+                    help him fill the well. Everyone grabbed a shovel and started throwing dirt into the well. At first, the donkey cried in fear. But then he became quiet. After a while, the farmer looked down and was amazed. With every shovel of dirt,
+                    the donkey shook it off and stepped up. The more dirt they threw, the higher he rose. Soon, the donkey stepped out of the well and walked away, surprising everyone.
+
+                </p>
+                <a href="more 2.html" class="read-more" id="read-more-2">Read More</a>
             </div>
         </div>
     </section>
@@ -533,6 +542,8 @@
             </div>
         </div>
     </section>
+    <button id="langBtn">Switch to Persian</button>
+
 
 
 
@@ -569,6 +580,8 @@
         const langBtn = document.getElementById('langBtn');
         let isEnglish = true;
 
+
+
         langBtn.addEventListener('click', () => {
             if (isEnglish) {
                 document.getElementById('title').innerText = 'به وبلاگ من خوش آمدید';
@@ -576,11 +589,25 @@
                 document.getElementById('hero-text').innerText = '...مطالب، داستان‌ها و نظرات من ';
                 document.getElementById('start-reading').innerText = 'شروع به خواندن کنید';
                 document.getElementById('blog-heading').innerText = 'آخرین مطالب';
-                document.getElementById('post-title-1').innerText = 'عنوان مطلب 1';
-                document.getElementById('post-summary-1').innerText = 'هر وقت چیزی یا داستان یا متنی به ذهنم رسید اینجا برای شما می نویسم.';
+                document.getElementById('post-title-1').innerText = 'رستاخیز خاکستر';
+                document.getElementById('post-summary-1').innerText = `
+                روزی ققنوسی فروتن در غاری تاریک و تنها گرفتار شده بود. آتش قلبش خاموش شده بود و احساس می‌کرد دیگر نمی‌تواند برخیزد. 
+                روزی طوفانی سهمگین شروع شد و غار را با باران و گل و لای پر کرد. ققنوس زیر لایه‌هایی از خاک و آوار دفن شد.
+                
+                در ابتدا فکر کرد: "این پایان است." اما وقتی طوفان آرام شد، جرقه‌ای در سینه‌اش روشن شد. فهمید که گل و لای قبرش نیست، بلکه آزمونش است.
+                
+                با تمام توانش، ققنوس شروع به پنجه کشیدن و سوزاندن لایه‌های خاک کرد. هر تلاش، بال‌هایش را قوی‌تر و آتشش را روشن‌تر می‌کرد. 
+                سرانجام، در انفجاری خیره‌کننده از شعله‌ها، از زمین بیرون آمد و با نوری سوزان به آسمان اوج گرفت، نوری که از مایل‌ها دورتر دیده می‌شد.
+                `;
+
                 document.getElementById('read-more-1').innerText = 'ادامه مطلب';
-                document.getElementById('post-title-2').innerText = 'عنوان مطلب 2';
-                document.getElementById('post-summary-2').innerText = 'الان چیزی به ذهنم نمیرسه';
+                document.getElementById('post-title-2').innerText = 'الاغ کشاورز';
+                document.getElementById('post-summary-2').innerHTML = `روزی الاغ کشاورزی داخل یک چاه قدیمی افتاد. کشاورز تلاش کرد او را نجات دهد، اما متوجه شد خیلی سخت است. با ناراحتی تصمیم گرفت که الاغ پیر شده و چاه هم باید پر شود.
+
+                او همسایه‌ها را صدا زد و از آن‌ها خواست کمک کنند چاه را پر کنند. همه با بیل شروع کردند به ریختن خاک داخل چاه. در ابتدا، الاغ با ترس فریاد زد، اما بعد ساکت شد.
+                
+                بعد از مدتی، کشاورز پایین را نگاه کرد و شگفت‌زده شد. با هر بیل خاکی که می‌ریختند، الاغ خاک را از روی خود می‌تکاند و قدمی بالاتر می‌آمد. هرچه بیشتر خاک ریختند، الاغ بالاتر رفت. سرانجام، الاغ از چاه بیرون آمد و همه را شگفت‌زده کرد.`;
+
                 document.getElementById('read-more-2').innerText = 'ادامه مطلب';
                 langBtn.innerText = 'Switch to English';
                 isEnglish = false;
@@ -590,11 +617,22 @@
                 document.getElementById('hero-text').innerText = 'Thoughts, stories, and opinions on the world around us';
                 document.getElementById('start-reading').innerText = 'Start Reading';
                 document.getElementById('blog-heading').innerText = 'Latest Posts';
-                document.getElementById('post-title-1').innerText = 'nothing...1';
-                document.getElementById('post-summary-1').innerText = 'Whenever something or a story or a text comes to my mind, I will write here for you.';
+                document.getElementById('post-title-1').innerText = 'The Rise from Ashes';
+                document.getElementById('post-summary-1').innerHTML = `
+Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers of dirt and debris.<br><br>
+
+At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest. It realized the mud was not its grave—it was its trial.<br><br>
+
+With every ounce of strength, the phoenix clawed and burned through the layers of dirt. Each struggle made its wings stronger, its fire brighter. Finally, it burst out of the earth in a dazzling explosion of flames, soaring into the skies with a fiery glow that could be seen for miles.
+`;
+
                 document.getElementById('read-more-1').innerText = 'Read More';
-                document.getElementById('post-title-2').innerText = 'nothing...2';
-                document.getElementById('post-summary-2').innerText = "I can't think of anything right now";
+                document.getElementById('post-title-2').innerText = 'The Farmer s Donkey';
+                document.getElementById('post-summary-2').innerText =
+                    "One day, a farmer's donkey fell into an old well. The farmer tried to rescue him but realized it was too hard. Sadly, he decided the donkey was too old and the well needed to be filled anyway.\n\n" +
+                    "He called his neighbors and asked them to help him fill the well. Everyone grabbed a shovel and started throwing dirt into the well. At first, the donkey cried in fear. But then he became quiet.\n\n" +
+                    "After a while, the farmer looked down and was amazed. With every shovel of dirt, the donkey shook it off and stepped up. The more dirt they threw, the higher he rose. Soon, the donkey stepped out of the well and walked away, surprising everyone.";
+
                 document.getElementById('read-more-2').innerText = 'Read More';
                 langBtn.innerText = 'Switch to Persian';
                 isEnglish = true;
@@ -626,9 +664,6 @@
             });
         });
     </script>
-
-
-
 </body>
 
 </html>

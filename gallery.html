@@ -5,7 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>The Rise from Ashes</title>
+    <title>Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+        
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .gallery-section {
+            padding: 100px 20px 20px;
+            text-align: center;
+        }
+        
+        .gallery-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item a {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #333;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-item a:hover {
+            background: #333;
+            color: #fff;
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+        
+        .lightbox:target {
+            display: flex;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        .close-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+        
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
     <style>
         /* تنظیمات کلی */
         
@@ -416,85 +548,211 @@
     </style>
 </head>
 
-<body>
-    <!-- هدر -->
-    <header>
-        <div class="logo">My Blog</div>
-        <nav>
-            <ul>
-                <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank">Spotify</a></li>
-                <li><a href="https://t.me/Dark_Night_123" target="_blank">Telegram</a></li>
-                <li><a href="index.html" target="_blank">home</a></li>
-                <li><a href="gallery.html" target="_blank">Gallery</a></li>
-            </ul>
-            <div class="toggle" id="toggle">
-                <div class="circle"></div>
-            </div>
-            </div>
-        </nav>
-    </header>
+<header>
+    <div class="logo">My Blog</div>
+    <nav>
+        <ul>
+            <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank">Spotify</a></li>
+            <li><a href="https://t.me/Dark_Night_123" target="_blank">Telegram</a></li>
+            <li><a href="index.html" target="_blank">home</a></li>
+            <li><a href="gallery.html" target="_blank">Gallery</a></li>
+        </ul>
+        <div class="toggle" id="toggle">
+            <div class="circle"></div>
+        </div>
+        </div>
+    </nav>
+</header>
 
-    <!-- محتوا -->
-    <div class="container">
-        <h1>The Rise from Ashes</h1>
-        <h2>Story:The Rise from Ashes</h2>
-        <p>Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers
-            of dirt and debris.</p>
-        <p>At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest. It realized the mud was not its grave—it was its trial.</p>
-        <p>With every ounce of strength, the phoenix clawed and burned through the layers of dirt. Each struggle made its wings stronger, its fire brighter. Finally, it burst out of the earth in a dazzling explosion of flames, soaring into the skies with
-            a fiery glow that could be seen for miles.</p>
-
-        <h2>داستان:</h2>
-        <p>روزی ققنوسی فروتن در غاری تاریک و تنها گرفتار شده بود. آتش قلبش خاموش شده بود و احساس می‌کرد دیگر نمی‌تواند برخیزد. روزی طوفانی سهمگین شروع شد و غار را با باران و گل و لای پر کرد. ققنوس زیر لایه‌هایی از خاک و آوار دفن شد.</p>
-        <p>در ابتدا فکر کرد: "این پایان است." اما وقتی طوفان آرام شد، جرقه‌ای در سینه‌اش روشن شد. فهمید که گل و لای قبرش نیست، بلکه آزمونش است.</p>
-        <p>با تمام توانش، ققنوس شروع به پنجه کشیدن و سوزاندن لایه‌های خاک کرد. هر تلاش، بال‌هایش را قوی‌تر و آتشش را روشن‌تر می‌کرد. سرانجام، در انفجاری خیره‌کننده از شعله‌ها، از زمین بیرون آمد و با نوری سوزان به آسمان اوج گرفت، نوری که از مایل‌ها دورتر
-            دیده می‌شد.</p>
-
-        <div class="message">
-            Message: Every obstacle can be a new beginning if you keep the fire of hope alive in your heart.<br> پیام داستان: هر مانعی می‌تواند نقطه آغاز دوباره شما باشد، اگر آتش امید را در قلب خود روشن نگه دارید.
+<section class="gallery-section">
+    <h2>Image Gallery</h2>
+    <div class="gallery">
+        <div class="gallery-item">
+            <a href="im1.jpg" download>Download</a>
+            <img src="im1.jpg" alt="Image 1">
+        </div>
+        <div class="gallery-item">
+            <a href="im2.jpg" download>Download</a>
+            <img src="im2.jpg" alt="Image 2">
+        </div>
+        <div class="gallery-item">
+            <a href="im3.jpg" download>Download</a>
+            <img src="im3.jpg" alt="Image 3">
+        </div>
+        <div class="gallery-item">
+            <a href="im4.jpg" download>Download</a>
+            <img src="im4.jpg" alt="Image 4">
+        </div>
+        <div class="gallery-item">
+            <a href="im5.jpg" download>Download</a>
+            <img src="im5.jpg" alt="Image 5">
+        </div>
+        <div class="gallery-item">
+            <a href="im6.jpg" download>Download</a>
+            <img src="im6.jpg" alt="Image 6">
+        </div>
+        <div class="gallery-item">
+            <a href="im7.jpg" download>Download</a>
+            <img src="im7.jpg" alt="Image 7">
+        </div>
+        <div class="gallery-item">
+            <a href="im8.jpg" download>Download</a>
+            <img src="im8.jpg" alt="Image 8">
+        </div>
+        <div class="gallery-item">
+            <a href="im9.jpg" download>Download</a>
+            <img src="im9.jpg" alt="Image 9">
+        </div>
+        <div class="gallery-item">
+            <a href="im10.jpg" download>Download</a>
+            <img src="im10.jpg" alt="Image 10">
+        </div>
+        <div class="gallery-item">
+            <a href="im11.jpg" download>Download</a>
+            <img src="im11.jpg" alt="Image 11">
+        </div>
+        <div class="gallery-item">
+            <a href="im12.jpg" download>Download</a>
+            <img src="im12.jpg" alt="Image 12">
+        </div>
+        <div class="gallery-item">
+            <a href="im13.jpg" download>Download</a>
+            <img src="im13.jpg" alt="Image 13">
+        </div>
+        <div class="gallery-item">
+            <a href="im14.jpg" download>Download</a>
+            <img src="im14.jpg" alt="Image 14">
+        </div>
+        <div class="gallery-item">
+            <a href="im15.jpg" download>Download</a>
+            <img src="im15.jpg" alt="Image 15">
+        </div>
+        <div class="gallery-item">
+            <a href="im16.jpg" download>Download</a>
+            <img src="im16.jpg" alt="Image 16">
+        </div>
+        <div class="gallery-item">
+            <a href="im17.jpg" download>Download</a>
+            <img src="im17.jpg" alt="Image 17">
+        </div>
+        <div class="gallery-item">
+            <a href="im18.jpg" download>Download</a>
+            <img src="im18.jpg" alt="Image 18">
         </div>
     </div>
+</section>
 
-    <!-- ویدئو -->
-    <div class="videos">
-        <iframe src="https://www.youtube.com/embed/eA0lHNZ1KCA" frameborder="0" allowfullscreen></iframe>
-    </div>
+<div id="img1" class="lightbox">
+    <a href="im1.jpg" class="close-btn">&times;</a>
+    <img src="im1.jpg" alt="Image 1">
+</div>
+<div id="img2" class="lightbox">
+    <a href="im2.jpg" class="close-btn">&times;</a>
+    <img src="im2.jpg" alt="Image 2">
+</div>
+<div id="img3" class="lightbox">
+    <a href="im3.jpg" class="close-btn">&times;</a>
+    <img src="im3.jpg" alt="Image 3">
+</div>
+<div id="img4" class="lightbox">
+    <a href="im4.jpg" class="close-btn">&times;</a>
+    <img src="im4.jpg" alt="Image 4">
+</div>
+<div id="img5" class="lightbox">
+    <a href="im5.jpg" class="close-btn">&times;</a>
+    <img src="im5.jpg" alt="Image 5">
+</div>
+<div id="img6" class="lightbox">
+    <a href="im6.jpg" class="close-btn">&times;</a>
+    <img src="im6.jpg" alt="Image 6">
+</div>
+<div id="img7" class="lightbox">
+    <a href="im7.jpg" class="close-btn">&times;</a>
+    <img src="im7.jpg" alt="Image 7">
+</div>
+<div id="img8" class="lightbox">
+    <a href="im8.jpg" class="close-btn">&times;</a>
+    <img src="im8.jpg" alt="Image 8">
+</div>
+<div id="img9" class="lightbox">
+    <a href="im9.jpg" class="close-btn">&times;</a>
+    <img src="im9.jpg" alt="Image 9">
+</div>
+<div id="img10" class="lightbox">
+    <a href="im10.jpg" class="close-btn">&times;</a>
+    <img src="im10.jpg" alt="Image 10">
+</div>
+<div id="img11" class="lightbox">
+    <a href="im11.jpg" class="close-btn">&times;</a>
+    <img src="im11.jpg" alt="Image 11">
+</div>
+<div id="img12" class="lightbox">
+    <a href="im12.jpg" class="close-btn">&times;</a>
+    <img src="im12.jpg" alt="Image 12">
+</div>
+<div id="img13" class="lightbox">
+    <a href="im13.jpg" class="close-btn">&times;</a>
+    <img src="im13.jpg" alt="Image 13">
+</div>
+<div id="img14" class="lightbox">
+    <a href="im14.jpg" class="close-btn">&times;</a>
+    <img src="im14.jpg" alt="Image 14">
+</div>
+<div id="img15" class="lightbox">
+    <a href="im15.jpg" class="close-btn">&times;</a>
+    <img src="im15.jpg" alt="Image 15">
+</div>
+<div id="img16" class="lightbox">
+    <a href="im16.jpg" class="close-btn">&times;</a>
+    <img src="im16.jpg" alt="Image 16">
 
-    <!-- فوتر -->
-    <footer>
-        <p>Designed and developed by AMIR KING - 2024</p>
-    </footer>
-    <script>
-        // Smooth scroll for all links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+</div>
+<div id="img17" class="lightbox">
+    <a href="im17.jpg" class="close-btn">&times;</a>
+    <img src="im17.jpg" alt="Image 17">
+</div>
+<div id="img18" class="lightbox">
+    <a href="im18.jpg" class="close-btn">&times;</a>
+    <img src="im18.jpg" alt="Image 18">
+</div>
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+
+
+<footer>
+    <p>Designed and developed by AMIR KING - 2024</p>
+</footer>
+<script>
+    // Smooth scroll for all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
+    });
 
-        // Day-Night Toggle Functionality
-        const toggle = document.getElementById('toggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('night-mode');
-        });
+    // Day-Night Toggle Functionality
+    const toggle = document.getElementById('toggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('night-mode');
+    });
 
-        // Example of animation on scroll (if required)
-        window.addEventListener('scroll', function() {
-            const bioSection = document.querySelector('.bio-section');
-            if (!bioSection) return; // Skip if .bio-section doesn't exist
+    // Example of animation on scroll (if required)
+    window.addEventListener('scroll', function() {
+        const bioSection = document.querySelector('.bio-section');
+        if (!bioSection) return; // Skip if .bio-section doesn't exist
 
-            const sectionPos = bioSection.getBoundingClientRect().top;
-            const screenPos = window.innerHeight / 1.3;
+        const sectionPos = bioSection.getBoundingClientRect().top;
+        const screenPos = window.innerHeight / 1.3;
 
-            if (sectionPos < screenPos) {
-                bioSection.classList.add('appear');
-            }
-        });
-    </script>
+        if (sectionPos < screenPos) {
+            bioSection.classList.add('appear');
+        }
+    });
+</script>
+</script>
 </body>
 
 </html>

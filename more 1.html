@@ -414,6 +414,60 @@
             /* افکت انیمیشن برای نوار اسکرول */
         }
     </style>
+    <style>
+        /* مخفی کردن منوی اصلی در موبایل */
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+        /* برای صفحه‌های کوچک: نمایش منوی همبرگری */
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #333;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -421,18 +475,26 @@
     <header>
         <div class="logo">My Blog</div>
         <nav>
-            <ul>
+            <ul class="nav-links">
                 <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank">Spotify</a></li>
                 <li><a href="https://t.me/Dark_Night_123" target="_blank">Telegram</a></li>
-                <li><a href="index.html" target="_blank">home</a></li>
+                <li><a href="index.html" target="_blank">Home</a></li>
                 <li><a href="gallery.html" target="_blank">Gallery</a></li>
             </ul>
             <div class="toggle" id="toggle">
                 <div class="circle"></div>
             </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </nav>
     </header>
+
+
+
+
 
     <!-- محتوا -->
     <div class="container">
@@ -457,7 +519,8 @@
 
     <!-- ویدئو -->
     <div class="videos">
-        <iframe src="https://www.youtube.com/embed/eA0lHNZ1KCA" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ovHoY8UBIu8?si=uHvzsp_lnbjCIbes" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
     <!-- فوتر -->
@@ -482,6 +545,7 @@
             document.body.classList.toggle('night-mode');
         });
 
+
         // Example of animation on scroll (if required)
         window.addEventListener('scroll', function() {
             const bioSection = document.querySelector('.bio-section');
@@ -493,6 +557,18 @@
             if (sectionPos < screenPos) {
                 bioSection.classList.add('appear');
             }
+        });
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        hamburger.addEventListener('click', () => {
+            console.log("Hamburger clicked!");
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
     </script>
 </body>

@@ -546,6 +546,31 @@
             /* افکت انیمیشن برای نوار اسکرول */
         }
     </style>
+    <style>
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 10px;
+                text-align: center;
+                height: auto;
+                /* ارتفاع متغیر برای هدر */
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin-bottom: 10px;
+            }
+            nav ul li a {
+                font-size: 1.2rem;
+            }
+            .container {
+                margin-top: 120px;
+                /* فاصله برای محتوای اصلی فقط در دستگاه‌های کوچک */
+            }
+        }
+    </style>
 </head>
 
 <body>

@@ -571,6 +571,86 @@
             }
         }
     </style>
+    <style>
+        /* ایجاد افکت برف */
+        
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 1.5rem;
+            pointer-events: none;
+            user-select: none;
+            animation: snow 10s linear infinite;
+        }
+        /* انیمیشن برف */
+        
+        @keyframes snow {
+            0% {
+                transform: translateY(-670vh) rotate(0deg);
+                /* شروع از بالای صفحه */
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                /* حرکت به پایین صفحه */
+            }
+        }
+        /* دکمه کریسمس */
+        
+        .christmas-text {
+            color: #ff4b5c;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .christmas-text:hover {
+            color: #fff;
+            text-shadow: 0 0 20px #ff4b5c, 0 0 30px #ff4b5c, 0 0 40px #ff4b5c;
+        }
+        /* به‌روزرسانی نمایش برف و نوشته‌ها در موبایل */
+        
+        @media (max-width: 768px) {
+            .snowflake {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+    <style>
+        /* برای موبایل: */
+        /* برای موبایل: */
+        
+        @media (max-width: 768px) {
+            .snowflake {
+                font-size: 1.2em;
+                /* اندازه کوچک‌تر برای موبایل */
+                top: -50px;
+                /* موقعیت شروع برف‌ها بالاتر می‌شود */
+                position: fixed;
+                /* برف‌ها ثابت در صفحه باقی می‌مانند */
+                z-index: 9999;
+                /* قرار دادن برف‌ها در بالاترین لایه */
+                pointer-events: none;
+                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+            }
+        }
+        /* برای دستگاه‌های خیلی کوچک */
+        
+        @media (max-width: 480px) {
+            .snowflake {
+                font-size: 1em;
+                /* اندازه خیلی کوچک‌تر */
+                top: -70px;
+                /* موقعیت شروع برف‌ها حتی بالاتر */
+                position: fixed;
+                /* برف‌ها ثابت در صفحه باقی می‌مانند */
+                z-index: 9999;
+                /* قرار دادن برف‌ها در بالاترین لایه */
+                pointer-events: none;
+                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -780,7 +860,26 @@
             }
         });
     </script>
+    <script>
+        // ایجاد برف در صفحه
+        function createSnowflakes() {
+            const snowflakes = ['❄', '❆', '✦', '✸', '❉'];
+            const numberOfSnowflakes = 70;
+            const snowContainer = document.body;
 
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerText = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        // فعال‌سازی برف
+        createSnowflakes();
+    </script>
 </body>
 
 </html>

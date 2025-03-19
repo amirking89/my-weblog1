@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Password</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0073e6;
+            margin: 0;
+        }
+        
+        .password-container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #E3383F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #C92C35;
+        }
+        
+        .main-content {
+            display: none;
+            /* در ابتدا مخفی است */
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="password-container" id="passwordScreen">
+        <h2>لطفاً رمز عبور را وارد کنید</h2>
+        <input type="password" id="password" placeholder="رمز عبور">
+        <button onclick="checkPassword()">ورود</button>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <iframe src="lo.html" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+            if (password === "123321") {
+                document.getElementById("passwordScreen").style.display = "none";
+                document.getElementById("mainContent").style.display = "block";
+            } else {
+                alert("رمز اشتباه است!");
+            }
+        }
+    </script>
+</body>
+
+</html>

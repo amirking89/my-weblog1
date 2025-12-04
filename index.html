@@ -4,849 +4,3332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <title id="title">My Blog</title>
     <link rel="icon" href="FreeLogoDesign _ LogoMaker - Google Chrome 1_1_2025 12_58_03 PM.png" type="image/png" sizes="128x128">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Global Styles */
+        /* ===== RESET & BASE ===== */
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+         :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #141414;
+            --card-dark: #1e1e1e;
+            --accent: #f7c08a;
+            --accent-hover: #e0b07a;
+            --text-light: #f0f0f0;
+            --text-gray: #b0b0b0;
+            --border-dark: #333;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
             font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background: #f4f4f4;
-            color: #333;
-            scroll-behavior: smooth;
-            transition: background-color 0.5s, color 0.5s;
+            background: var(--gradient-dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+            padding-top: 80px;
+            min-height: 100vh;
+            position: relative;
         }
         
-        body.night-mode {
-            background-color: #333;
-            color: #f4f4f4;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(247, 192, 138, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(247, 192, 138, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
         
         .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        /* Header */
-        
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
             width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* ===== LEAVES ANIMATION ===== */
+        
+        .leaf-container {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 5px rgba(247, 192, 138, 0.3));
+            user-select: none;
+        }
+        
+        .leaf:nth-child(3n) {
+            color: #ff6b6b;
+            animation-delay: 0s;
+        }
+        
+        .leaf:nth-child(3n+1) {
+            color: #4ecdc4;
+            animation-delay: 1s;
+        }
+        
+        .leaf:nth-child(3n+2) {
+            color: #ffe66d;
+            animation-delay: 2s;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* ===== HEADER ===== */
+        
+        .main-header {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-dark);
+            padding: 15px 0;
+            box-shadow: var(--shadow-dark);
+            transition: all 0.3s;
+        }
+        
+        .header-scrolled {
+            padding: 10px 0;
+            background: rgba(10, 10, 10, 0.98);
+        }
+        
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
         }
         
-        nav {
-            flex: 1;
+        .logo i {
+            font-size: 2.5rem;
+            animation: logoPulse 3s infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .main-nav {
             display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
             justify-content: center;
         }
         
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-        
-        nav ul li {
-            margin-right: 20px;
-        }
-        
-        nav ul li a {
-            color: #fff;
+        .nav-link {
+            color: var(--text-light);
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #f7c08a;
-        }
-        /* Improved Day-Night Toggle */
-        
-        .toggle {
+            font-size: 1.05rem;
+            padding: 10px 18px;
+            border-radius: 25px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 192, 138, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(247, 192, 138, 0.4);
+        }
+        
+        .nav-link.active {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theme-toggle {
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
             width: 50px;
-            height: 25px;
-            background-color: #ddd;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: rotate(30deg);
+            border-color: var(--accent);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+        /* ===== HERO SECTION ===== */
+        
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0;
+            margin-bottom: 80px;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920') center/cover;
+            z-index: -1;
+            filter: brightness(0.4);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            padding: 40px 20px;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--accent);
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards;
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(247, 192, 138, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        /* ===== BLOG POSTS ===== */
+        
+        .posts-section {
+            padding: 80px 0;
+            background: var(--secondary-dark);
+            position: relative;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent);
+            position: relative;
+            padding-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 2px;
+        }
+        
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .post-card {
+            background: var(--card-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-dark);
+            transition: all 0.4s;
+            border: 1px solid var(--border-dark);
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+        }
+        
+        .post-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .post-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            border-color: var(--accent);
+        }
+        
+        .post-image {
+            height: 220px;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+        }
+        
+        .post-number {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+        
+        .post-category {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+        
+        .post-content {
+            padding: 30px;
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .post-date,
+        .post-read-time {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .word-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            line-height: 1.4;
+            font-weight: 600;
+        }
+        
+        .post-excerpt {
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        /* دکمه ادامه مطلب */
+        
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: transparent;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--accent);
+            margin-top: 10px;
+        }
+        
+        .read-more-btn:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(247, 192, 138, 0.3);
+        }
+        
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-dark);
+            padding-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .author-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            color: var(--accent);
+            background: rgba(247, 192, 138, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .load-more-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 15px 50px;
+            font-size: 1.1rem;
+        }
+        /* ===== ABOUT SECTION ===== */
+        
+        .about-section {
+            padding: 100px 0;
+            background: var(--primary-dark);
+            position: relative;
+            margin-bottom: 80px;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        /* ===== MEDIA SECTION ===== */
+        
+        .media-section {
+            padding: 80px 0;
+            background: var(--secondary-dark);
+            margin-bottom: 80px;
+        }
+        
+        .media-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+        
+        .media-card {
+            background: var(--card-dark);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border-dark);
+            transition: all 0.3s;
+        }
+        
+        .media-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .media-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .media-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .copy-btn {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 25px;
             border-radius: 25px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 2px;
-            transition: background-color 0.5s;
+            gap: 10px;
+            font-weight: 500;
+            transition: all 0.3s;
         }
         
-        .toggle .circle {
-            width: 21px;
-            height: 21px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.5s;
+        .copy-btn:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
         }
         
-        body.night-mode .toggle {
-            background-color: #f7c08a;
-        }
-        
-        body.night-mode .toggle .circle {
-            transform: translateX(25px);
-        }
-        
-        .spotify-embed {
-            margin-top: 60px;
+        .youtube-placeholder {
             text-align: center;
-        }
-        /* Hero Section */
-        
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?nature') no-repeat center center/cover;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .hero h2 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-        }
-        
-        .hero .btn {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            background: #f7c08a;
-            color: #333;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        
-        .hero .btn:hover {
-            background: #333;
-            color: #fff;
-        }
-        /* Blog Posts */
-        
-        .posts {
-            padding: 60px 0;
-            background: #fff;
-        }
-        
-        body.night-mode .posts {
-            background: #444;
-        }
-        
-        .posts h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-        }
-        
-        .post {
-            background: #f4f4f4;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        body.night-mode .post {
-            background: #555;
-        }
-        
-        .post:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .post h3 {
-            margin-bottom: 10px;
-        }
-        
-        .read-more {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: #333;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        
-        .read-more:hover {
-            background: #f7c08a;
-            color: #333;
-        }
-        /* Footer */
-        
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-        
-        footer p {
-            margin: 0;
-        }
-        /* Language Switcher */
-        
-        #langBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background: #f7c08a;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        #langBtn:hover {
-            background: #333;
-            color: #fff;
-        }
-    </style>
-    <style>
-        /* سایر استایل‌ها */
-        /* تنظیمات برای صفحه‌نمایش کوچک */
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                font-size: 14px;
-            }
-            header {
-                flex-direction: column;
-                padding: 10px;
-                text-align: center;
-            }
-            .spotify-embed {
-                margin-top: 50px;
-                /* فاصله بالا برای جلوگیری از چسبیدن به هدر */
-                margin-bottom: 30px;
-                /* فاصله پایین برای جدا شدن از بخش بعدی */
-            }
-            .spotify-embed iframe {
-                width: 100%;
-                height: 250 px;
-                /* کاهش ارتفاع در موبایل */
-            }
-            .hero {
-                margin-top: 20px;
-                /* فاصله بعد از اسپاتیفای */
-            }
-            .hero h2 {
-                font-size: 2.5rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .hero .btn {
-                font-size: 1rem;
-                padding: 8px 15px;
-            }
-            .posts h2 {
-                font-size: 1.8rem;
-            }
-            .post {
-                padding: 15px;
-            }
-            .post h3 {
-                font-size: 1.2rem;
-            }
-            .post p {
-                font-size: 0.9rem;
-            }
-            .read-more {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
-    <style>
-        .comments {
-            padding: 40px 0;
-            background: #fff;
-        }
-        
-        .comments h2 {
-            margin-bottom: 20px;
-        }
-        
-        #comment-form textarea {
-            width: 100%;
-            height: 80px;
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        
-        #comment-form button {
-            background: #333;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        #comment-list {
+            padding: 60px 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
             margin-top: 20px;
         }
         
-        .comment-item {
-            background: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
+        .youtube-placeholder i {
+            font-size: 4rem;
+            color: #ff0000;
+            margin-bottom: 20px;
         }
         
-        .rating {
+        .youtube-placeholder h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+        
+        .youtube-placeholder p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        .spotify-widget {
+            background: linear-gradient(135deg, #1DB954, #191414);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spotify-widget::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .spotify-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .spotify-icon {
+            font-size: 3rem;
+        }
+        
+        .spotify-info h4 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+        
+        .spotify-info p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .spotify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .spotify-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        /* ===== MUSIC PLAYER SECTION ===== */
+        
+        .music-section {
+            padding: 80px 0;
+            background: var(--primary-dark);
+            margin-bottom: 80px;
+        }
+        
+        .music-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-dark);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border-dark);
+        }
+        
+        .player-main {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .player-info-section {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid var(--border-dark);
+        }
+        
+        .album-cover {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .album-cover::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .album-cover i {
+            font-size: 100px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .song-info {
+            margin-bottom: 30px;
+        }
+        
+        .song-info h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .song-info p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+        
+        .player-controls {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            align-items: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .player-btn {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .player-btn:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+        
+        .play-pause-btn {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        
+        .play-pause-btn:hover {
+            transform: scale(1.15);
+        }
+        
+        .progress-container {
+            width: 100%;
+            margin: 30px 0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+        
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .volume-bar {
+            width: 150px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .volume-level {
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .playlist {
+            margin-top: 40px;
+        }
+        
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-dark);
+        }
+        
+        .playlist-header h4 {
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+        
+        .playlist-items {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .playlist-item:hover {
+            background: rgba(247, 192, 138, 0.1);
+            border-color: var(--accent);
+            transform: translateX(10px);
+        }
+        
+        .playlist-item.active {
+            background: rgba(247, 192, 138, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .playlist-item-number {
+            width: 30px;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .playlist-item-info {
+            flex: 1;
+            margin: 0 15px;
+        }
+        
+        .playlist-item-title {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .playlist-item-artist {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .playlist-item-duration {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        /* ===== COMMENTS SECTION ===== */
+        
+        .comments-section {
+            padding: 100px 0;
+            background: var(--primary-dark);
+            margin-bottom: 80px;
+        }
+        
+        .comments-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .rating-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
         }
         
         .star {
-            font-size: 2rem;
-            color: #ccc;
+            font-size: 2.5rem;
+            color: var(--text-gray);
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .star::after {
+            content: '★';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: gold;
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s;
         }
         
         .star:hover,
-        .star:hover~.star {
-            color: #f7c08a;
+        .star.active {
+            color: gold;
+            transform: scale(1.2);
+        }
+        
+        .star.active::after {
+            width: 100%;
+        }
+        
+        .comment-form {
+            background: var(--card-dark);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-dark);
+            margin-bottom: 50px;
+            border: 1px solid var(--border-dark);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(247, 192, 138, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .comments-list {
+            margin-top: 60px;
+        }
+        
+        .comment-item {
+            background: var(--card-dark);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-dark);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .comment-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .comment-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .comment-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
+        }
+        
+        .comment-date {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .comment-rating {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .comment-rating .star {
+            font-size: 1.2rem;
+            color: gold;
+            cursor: default;
+        }
+        
+        .comment-content {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        /* ===== FOOTER ===== */
+        
+        .main-footer {
+            background: var(--card-dark);
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--border-dark);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h4 {
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .footer-text {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-dark);
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-dark);
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        /* ===== LANGUAGE SWITCHER ===== */
+        
+        .lang-switcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .lang-btn {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-dark);
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .lang-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(247, 192, 138, 0.4);
+        }
+        /* ===== NOTIFICATION ===== */
+        
+        .notification {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: var(--success);
+            color: var(--primary-dark);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-dark);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(150%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.error {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .notification i {
+            font-size: 1.3rem;
+        }
+        /* ===== SCROLL TO TOP ===== */
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
+            font-size: 1.2rem;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(247, 192, 138, 0.4);
+        }
+        /* ===== RESPONSIVE DESIGN ===== */
+        
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+            .posts-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            .media-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .posts-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 30px;
+            }
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 40px;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .main-nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(20, 20, 20, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s;
+                z-index: 999;
+                border-bottom: 1px solid var(--border-dark);
+            }
+            .main-nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                padding: 15px 0;
+            }
         }
         
         @media (max-width: 768px) {
-            .comments textarea {
-                font-size: 0.9rem;
+            .container {
+                max-width: 720px;
+                padding: 0 15px;
             }
-            .star {
+            .header-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .logo {
+                font-size: 1.8rem;
+            }
+            .logo i {
+                font-size: 2rem;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+                padding: 0 10px;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+            .posts-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .post-card {
+                max-width: 100%;
+            }
+            .media-card {
+                padding: 25px 20px;
+            }
+            .media-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .copy-btn {
+                align-self: flex-start;
+            }
+            .comment-form {
+                padding: 30px 20px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .lang-btn {
+                padding: 12px 25px;
+                font-size: 0.95rem;
+            }
+            .scroll-top {
+                bottom: 90px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            .notification {
+                bottom: 90px;
+                right: 20px;
+                padding: 15px 25px;
+            }
+            .music-container {
+                padding: 25px;
+            }
+            .album-cover {
+                width: 200px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding-top: 70px;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .post-content {
+                padding: 20px;
+            }
+            .post-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .media-card {
+                padding: 20px 15px;
+            }
+            .comment-item {
+                padding: 20px 15px;
+            }
+            .lang-switcher {
+                bottom: 20px;
+                right: 20px;
+            }
+            .scroll-top {
+                bottom: 80px;
+                right: 20px;
+            }
+            .notification {
+                bottom: 80px;
+                right: 20px;
+                left: 20px;
+                text-align: center;
+                justify-content: center;
+            }
+            .player-controls {
+                gap: 15px;
+            }
+            .player-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .play-pause-btn {
+                width: 60px;
+                height: 60px;
                 font-size: 1.5rem;
             }
-            #comment-list {
-                font-size: 0.9rem;
+            .album-cover {
+                width: 180px;
+                height: 180px;
             }
-        }
-        
-        .videos {
-            padding: 40px 0;
-            background: #f4f4f4;
-            text-align: center;
-        }
-        
-        .videos h2 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-        
-        #video-display iframe {
-            width: 100%;
-            max-width: 600px;
-            height: 340px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-         ::-webkit-scrollbar {
-            width: 14px;
-            /* عرض نوار اسکرول */
-            height: 14px;
-            /* ارتفاع نوار اسکرول افقی */
-        }
-        
-         ::-webkit-scrollbar-track {
-            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
-            /* گرادینت برای پس‌زمینه نوار اسکرول */
-            border-radius: 10px;
-            /* گوشه‌های گرد */
-            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
-            /* سایه داخلی برای عمق */
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff4b5c, #e63946, #ff4b5c);
-            /* گرادینت چندرنگ برای نوار اسکرول */
-            border-radius: 10px;
-            /* گوشه‌های گرد */
-            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
-            /* سایه داخلی برای نمای بهتر */
-            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            /* انیمیشن برای تغییرات رنگ و سایه */
-        }
-        
-         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #e63946, #ff4b5c);
-            /* تغییر رنگ در حالت Hover */
-            box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.4);
-            /* تغییر سایه در حالت Hover */
-            cursor: pointer;
-            /* نشانگر دست در حالت Hover */
-        }
-        
-         ::-webkit-scrollbar-thumb:active {
-            background: linear-gradient(45deg, #c52834, #ff4b5c);
-            /* تغییر رنگ در حالت Active */
-            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.6);
-            /* سایه تیره‌تر در حالت Active */
-        }
-        
-         ::-webkit-scrollbar-corner {
-            background: #ff4b5c;
-            /* رنگ گوشه اسکرول */
-        }
-        /* Custom Scrollbar for Firefox */
-        
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #ff4b5c #f2f2f2;
-            /* رنگ نوار اسکرول و پس‌زمینه برای فایرفاکس */
-        }
-        /* Scrollbar Animation */
-        
-        @keyframes scroll-glow {
-            0% {
-                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            .album-cover i {
+                font-size: 80px;
             }
-            50% {
-                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+            .song-info h3 {
+                font-size: 1.5rem;
             }
-            100% {
-                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
-            }
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            animation: scroll-glow 1.5s ease-in-out infinite;
-            /* افکت انیمیشن برای نوار اسکرول */
-        }
-    </style>
-    <style>
-        /* ایجاد افکت برف */
-        
-        .snowflake {
-            position: absolute;
-            color: #fff;
-            font-size: 1.5rem;
-            pointer-events: none;
-            user-select: none;
-            animation: snow 10s linear infinite;
-        }
-        /* انیمیشن برف */
-        
-        @keyframes snow {
-            0% {
-                transform: translateY(-500vh) rotate(0deg);
-                /* شروع از بالای صفحه */
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                /* حرکت به پایین صفحه */
-            }
-        }
-        /* دکمه کریسمس */
-        
-        .christmas-text {
-            color: #ff4b5c;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
-        }
-        
-        .christmas-text:hover {
-            color: #fff;
-            text-shadow: 0 0 20px #ff4b5c, 0 0 30px #ff4b5c, 0 0 40px #ff4b5c;
-        }
-        /* به‌روزرسانی نمایش برف و نوشته‌ها در موبایل */
-        
-        @media (max-width: 768px) {
-            .snowflake {
+            .song-info p {
                 font-size: 1rem;
             }
         }
-    </style>
-
-    <style>
-        /* برای موبایل: */
-        /* برای موبایل: */
         
-        @media (max-width: 768px) {
-            .snowflake {
-                font-size: 1.2em;
-                /* اندازه کوچک‌تر برای موبایل */
-                top: -50px;
-                /* موقعیت شروع برف‌ها بالاتر می‌شود */
-                position: fixed;
-                /* برف‌ها ثابت در صفحه باقی می‌مانند */
-                z-index: 9999;
-                /* قرار دادن برف‌ها در بالاترین لایه */
-                pointer-events: none;
-                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            .media-container {
+                grid-template-columns: 1fr;
+            }
+            .post-card {
+                min-width: 100%;
+            }
+            .footer-column h4 {
+                font-size: 1.1rem;
+            }
+            .music-container {
+                padding: 20px 15px;
+            }
+            .album-cover {
+                width: 150px;
+                height: 150px;
             }
         }
-        /* برای دستگاه‌های خیلی کوچک */
+        /* ===== UTILITY CLASSES ===== */
         
-        @media (max-width: 480px) {
-            .snowflake {
-                font-size: 1em;
-                /* اندازه خیلی کوچک‌تر */
-                top: -70px;
-                /* موقعیت شروع برف‌ها حتی بالاتر */
-                position: fixed;
-                /* برف‌ها ثابت در صفحه باقی می‌مانند */
-                z-index: 9999;
-                /* قرار دادن برف‌ها در بالاترین لایه */
-                pointer-events: none;
-                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
-            }
+        .text-center {
+            text-align: center;
         }
-    </style>
-    <style>
-        /* استایل پیام کریسمس */
         
-        .christmas-message {
-            position: fixed;
-            bottom: 20px;
-            /* در پایین صفحه */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ff4b5c;
-            color: #fff;
-            font-size: 2rem;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
-            /* مخفی است تا ابتدا نیاید */
-            opacity: 0;
-            animation: fadeInOut 4s forwards;
-            /* انیمیشن برای فید */
+        .mb-20 {
+            margin-bottom: 20px;
         }
-        /* انیمیشن برای فید */
         
-        @keyframes fadeInOut {
-            0% {
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+        
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+        
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .mt-30 {
+            margin-top: 30px;
+        }
+        
+        .mt-40 {
+            margin-top: 40px;
+        }
+        
+        .mt-50 {
+            margin-top: 50px;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
                 opacity: 0;
-                transform: translateY(50px) translateX(-50%);
             }
-            50% {
+            to {
                 opacity: 1;
-                transform: translateY(0) translateX(-50%);
             }
-            100% {
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
                 opacity: 0;
-                transform: translateY(-50px) translateX(-50%);
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="christmas-message" id="christmasMessage">خوش اومدی!</div>
+    <!-- Leaves Animation -->
+    <div class="leaf-container" id="leafContainer"></div>
 
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Notification</span>
+    </div>
 
-    <header>
-        <div class="container">
-            <div class="logo">My Blog</div>
-            <nav>
-                <ul>
-                    <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3?si=MOF-LxxXSnu5PveyjdiD1Q" target="_blank" id="spotify">Spotify</a></li>
-                    <li><a href="https://t.me/Dark_Night_123" target="_blank" id="telegram">Telegram</a></li>
-                    <li><a href="gallery.html" target="_blank">Gallery</a></li>
-                    <li><a href="loo.html" target="_blank">LOCK</a></li>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" title="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn" id="langBtn">
+            <i class="fas fa-language"></i>
+            <span id="langText">فارسی</span>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-blog"></i>
+                <span id="siteTitle">My Blog</span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> <span id="navHome">Home</span></a></li>
+                    <li><a href="#blog" class="nav-link"><i class="fas fa-newspaper"></i> <span id="navBlog">Blog</span></a></li>
+                    <li><a href="#media" class="nav-link"><i class="fas fa-play-circle"></i> <span id="navMedia">Media</span></a></li>
+                    <li><a href="#music" class="nav-link"><i class="fas fa-music"></i> <span id="navMusic">Music</span></a></li>
+                    <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank" class="nav-link"><i class="fab fa-spotify"></i> <span id="navSpotify">Spotify</span></a></li>
+                    <li><a href="https://t.me/Dark_Night_123" target="_blank" class="nav-link"><i class="fab fa-telegram"></i> <span id="navTelegram">Telegram</span></a></li>
+                    <li><a href="gallery.html" target="_blank" class="nav-link"><i class="fas fa-images"></i> <span id="navGallery">Gallery</span></a></li>
+                    <li><a href="admin.html" class="nav-link"><i class="fas fa-lock"></i> <span id="navLock">LOCK</span></a></li>
                 </ul>
             </nav>
-            <div class="toggle" id="toggle">
-                <div class="circle"></div>
+
+            <div class="header-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </header>
 
-
-    <section id="home" class="hero">
-        <div class="container">
-            <h2 id="hero-heading">My Blog, A Place to Share Ideas</h2>
-            <p id="hero-text">Thoughts, stories, and opinions...</p>
-            <a href="#blog" class="btn" id="start-reading">Start Reading</a>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title" id="heroTitle">My Blog, A Place to Share Ideas</h1>
+            <p class="hero-subtitle" id="heroSubtitle">Thoughts, stories, and opinions from the shadows. Dive into a world of creativity and inspiration.</p>
+            <div class="hero-btns">
+                <a href="#blog" class="btn" id="heroBtn">
+                    <i class="fas fa-book-open"></i>
+                    <span>Start Reading</span>
+                </a>
+                <a href="#music" class="btn btn-outline">
+                    <i class="fas fa-music"></i>
+                    <span>Listen Music</span>
+                </a>
+            </div>
         </div>
     </section>
 
-    <section id="blog" class="posts">
+    <!-- Blog Posts -->
+    <section id="blog" class="posts-section">
         <div class="container">
-            <h2 id="blog-heading">Latest Posts</h2>
-            <div class="post">
-                <p id="post-summary-2">
-                    Merry Christmas! 🎄 On a snowy Christmas Eve, a little boy was waiting eagerly for Santa. As midnight approached, he heard a soft sound coming from the chimney. He rushed to the fireplace and saw a small gift waiting for him. It wasn't the biggest present,
-                    but it was the most special. Santa had left him a note that said, "The best gift is love and kindness. Share it with everyone you meet!" The boy smiled and decided to spread joy and kindness all around, reminding everyone that Christmas
-                    is about love, not just gifts.
-                </p>
+            <h2 class="section-title" id="blogTitle">Latest Posts</h2>
 
-                <a href="more 2.html" class="read-more" id="read-more-2">Read More</a>
+            <div class="posts-grid">
+                <!-- Post 1 -->
+                <article class="post-card fade-in">
+                    <div class="post-image">
+                        <span class="post-number">01</span>
+                        <span class="post-category" id="postCategory1">Holiday</span>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span id="postDate1">December 25, 2024</span>
+                            </span>
+                            <span class="post-read-time">
+                                <i class="far fa-clock"></i>
+                                5 min read
+                                <span class="word-count">
+                                    <i class="fas fa-font"></i>
+                                    ~450 words
+                                </span>
+                            </span>
+                        </div>
+                        <h3 class="post-title" id="postTitle1">A Christmas Story: The Magic of Giving</h3>
+                        <p class="post-excerpt" id="postExcerpt1">
+                            Merry Christmas! 🎄 On a snowy Christmas Eve, a little boy was waiting eagerly for Santa. As midnight approached, he heard a soft sound coming from the chimney. He rushed to the fireplace and saw a small gift waiting for him. It wasn't the biggest present,
+                            but it was the most special...
+                        </p>
+
+                        <!-- دکمه ادامه مطلب اضافه شد -->
+                        <a href="more 2.html" class="read-more-btn">
+                            <i class="fas fa-book-open"></i>
+                            <span>Continue Reading</span>
+                        </a>
+
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <div class="author-avatar">D</div>
+                                <div>
+                                    <h4>Dark Writer</h4>
+                                    <p>Blog Author</p>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" title="Like">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Share">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <button class="action-btn" title="Bookmark">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post-card fade-in" style="animation-delay: 0.2s">
+                    <div class="post-image" style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                        <span class="post-number">02</span>
+                        <span class="post-category" id="postCategory2">Inspiration</span>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="post-date">
+                                <i class="far fa-calendar"></i>
+                                <span id="postDate2">December 24, 2024</span>
+                            </span>
+                            <span class="post-read-time">
+                                <i class="far fa-clock"></i>
+                                7 min read
+                                <span class="word-count">
+                                    <i class="fas fa-font"></i>
+                                    ~650 words
+                                </span>
+                            </span>
+                        </div>
+                        <h3 class="post-title" id="postTitle2">The Rise from Ashes: A Phoenix's Journey</h3>
+                        <p class="post-excerpt" id="postExcerpt2">
+                            Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers of dirt
+                            and debris. At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest...
+                        </p>
+
+                        <!-- دکمه ادامه مطلب اضافه شد -->
+                        <a href="more 1.html" class="read-more-btn">
+                            <i class="fas fa-book-open"></i>
+                            <span>Continue Reading</span>
+                        </a>
+
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <div class="author-avatar">A</div>
+                                <div>
+                                    <h4>Amir</h4>
+                                    <p>Story Teller</p>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" title="Like">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Share">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <button class="action-btn" title="Bookmark">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post-card fade-in" style="animation-delay: 0.4s">
+                    <div class="post-image" style="background: linear-gradient(45deg, #f093fb, #f5576c);">
+                        <span class="post-number">03</span>
+                        <span class="post-category">Technology</span>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="post-date">
+                                <i class="far fa-calendar"></i>
+                                December 23, 2024
+                            </span>
+                            <span class="post-read-time">
+                                <i class="far fa-clock"></i>
+                                8 min read
+                                <span class="word-count">
+                                    <i class="fas fa-font"></i>
+                                    ~750 words
+                                </span>
+                            </span>
+                        </div>
+                        <h3 class="post-title">The Art of Dark Web Design</h3>
+                        <p class="post-excerpt">
+                            Exploring the psychology behind dark themes in web design. How carefully crafted dark interfaces can reduce eye strain, improve focus, and create immersive user experiences that keep visitors engaged longer...
+                        </p>
+
+                        <!-- دکمه ادامه مطلب اضافه شد -->
+                        <a href="more 3.html" class="read-more-btn">
+                            <i class="fas fa-book-open"></i>
+                            <span>Continue Reading</span>
+                        </a>
+
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <div class="author-avatar">W</div>
+                                <div>
+                                    <h4>Web Designer</h4>
+                                    <p>UI/UX Expert</p>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" title="Like">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Share">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <button class="action-btn" title="Bookmark">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="post-card fade-in" style="animation-delay: 0.6s">
+                    <div class="post-image" style="background: linear-gradient(45deg, #4facfe, #00f2fe);">
+                        <span class="post-number">04</span>
+                        <span class="post-category">Lifestyle</span>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="post-date">
+                                <i class="far fa-calendar"></i>
+                                December 22, 2024
+                            </span>
+                            <span class="post-read-time">
+                                <i class="far fa-clock"></i>
+                                6 min read
+                                <span class="word-count">
+                                    <i class="fas fa-font"></i>
+                                    ~550 words
+                                </span>
+                            </span>
+                        </div>
+                        <h3 class="post-title">Finding Creativity in Darkness</h3>
+                        <p class="post-excerpt">
+                            How embracing the quiet hours of the night can unlock new levels of creativity. The psychology of nighttime productivity and why some of the world's greatest ideas were born in darkness...
+                        </p>
+
+                        <!-- دکمه ادامه مطلب اضافه شد -->
+                        <a href="more 4.html" class="read-more-btn">
+                            <i class="fas fa-book-open"></i>
+                            <span>Continue Reading</span>
+                        </a>
+
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <div class="author-avatar">C</div>
+                                <div>
+                                    <h4>Creative Mind</h4>
+                                    <p>Productivity Coach</p>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" title="Like">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Share">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <button class="action-btn" title="Bookmark">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
-            <div class="post">
-                <h3 id="post-title-1">The Rise from Ashes</h3>
-                <p id="post-summary-1">
-                    Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers of dirt
-                    and debris. At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest. It realized the mud was not its grave—it was its trial. With every ounce of strength, the phoenix clawed and
-                    burned through the layers of dirt. Each struggle made its wings stronger, its fire brighter. Finally, it burst out of the earth in a dazzling explosion of flames, soaring into the skies with a fiery glow that could be seen for miles.
 
-                </p>
-                <a href="more 1.html" class="read-more" id="read-more-1">Read More</a>
-            </div>
-
+            <button class="btn load-more-btn" id="loadMoreBtn">
+                <i class="fas fa-plus"></i>
+                <span id="loadMoreText">Load More Posts</span>
+            </button>
         </div>
     </section>
-    <footer>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container about-content">
+            <h2 class="about-title" id="aboutTitle">About This Blog</h2>
+            <p class="about-text" id="aboutText">
+                Welcome to my personal space on the internet. This blog is a collection of thoughts, stories, and ideas that I find worth sharing. From technology and design to personal growth and creative writing, this is where I document my journey and insights.
+            </p>
+            <p class="about-text" id="aboutText2">
+                The dark theme isn't just an aesthetic choice—it's a conscious decision to create a focused, immersive reading experience that's easy on the eyes during late-night reading sessions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Media Section -->
+    <section id="media" class="media-section">
         <div class="container">
-            <p id="footer-text">Designed and developed by AMIR KING - 2024</p>
+            <h2 class="section-title" id="mediaTitle">Media & Entertainment</h2>
+
+            <div class="media-container">
+                <!-- YouTube -->
+                <div class="media-card">
+                    <div class="media-header">
+                        <h3 class="media-title">
+                            <i class="fab fa-youtube" style="color: #ff0000;"></i>
+                            <span id="youtubeTitle">Featured Video</span>
+                        </h3>
+                        <button class="copy-btn" onclick="copyToClipboard('https://youtu.be/ZLnQQ38hvQw?si=DLLWc-bAUCdtcZb5')">
+                            <i class="far fa-copy"></i>
+                            <span id="copyBtn1">Copy Link</span>
+                        </button>
+                    </div>
+                    <div class="youtube-placeholder">
+                        <i class="fab fa-youtube"></i>
+                        <h4 id="noVideoTitle">Video</h4>
+                        <p id="noVideoText">YOU CAN WHATCH. Stay tuned for updates!</p>
+                    </div>
+                </div>
+
+                <!-- Spotify -->
+                <div class="media-card">
+                    <div class="media-header">
+                        <h3 class="media-title">
+                            <i class="fab fa-spotify" style="color: #1DB954;"></i>
+                            <span id="spotifyTitle">Spotify Playlist</span>
+                        </h3>
+                        <button class="copy-btn" onclick="copyToClipboard('https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3')">
+                            <i class="far fa-copy"></i>
+                            <span id="copyBtn2">Copy Link</span>
+                        </button>
+                    </div>
+                    <div class="spotify-widget">
+                        <div class="spotify-header">
+                            <i class="fab fa-spotify spotify-icon"></i>
+                            <div class="spotify-info">
+                                <h4 id="playlistTitle">Dark Vibes Collection</h4>
+                                <p id="playlistInfo">Curated by Amir FN• 50+ tracks • 3h 45m</p>
+                            </div>
+                        </div>
+                        <p id="playlistDesc">
+                            A carefully curated selection of dark, atmospheric, and emotional music perfect for coding sessions, late-night reading, and creative work. Updated weekly with new discoveries.
+                        </p>
+                        <a href="#" target="_blank" class="spotify-link">
+                            <i class="fab fa-spotify"></i>
+                            <span id="listenBtn">Listen on Spotify</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player Section -->
+    <section id="music" class="music-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-music"></i> Music Player
+            </h2>
+
+            <div class="music-container">
+                <!-- Player Info -->
+                <div class="player-main">
+                    <div class="player-info-section">
+                        <div class="album-cover" id="albumCover">
+                            <i class="fas fa-music"></i>
+                        </div>
+
+                        <div class="song-info">
+                            <h3 id="currentSongTitle">Select a song</h3>
+                            <p id="currentArtist">Artist Name</p>
+                            <p id="currentAlbum">Album Name</p>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress" id="progress"></div>
+                            </div>
+                            <div class="time-info">
+                                <span id="currentTime">0:00</span>
+                                <span id="duration">0:00</span>
+                            </div>
+                        </div>
+
+                        <!-- Player Controls -->
+                        <div class="player-controls">
+                            <button class="player-btn" id="prevBtn" title="Previous">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button class="player-btn play-pause-btn" id="playBtn" title="Play/Pause">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="player-btn" id="nextBtn" title="Next">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                        </div>
+
+                        <!-- Volume Control -->
+                        <div class="volume-control">
+                            <i class="fas fa-volume-down" style="color: var(--accent);"></i>
+                            <div class="volume-bar" id="volumeBar">
+                                <div class="volume-level" id="volumeLevel"></div>
+                            </div>
+                            <i class="fas fa-volume-up" style="color: var(--accent);"></i>
+                        </div>
+                    </div>
+
+                    <!-- Playlist -->
+                    <div class="playlist">
+                        <div class="playlist-header">
+                            <h4>Playlist (10 songs)</h4>
+                            <span id="playlistTime">Total: 42:18</span>
+                        </div>
+
+                        <div class="playlist-items" id="playlistItems">
+                            <!-- Playlist items will be added by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section id="comments" class="comments-section">
+        <div class="container">
+            <div class="comments-container">
+                <h2 class="section-title" id="commentsTitle">Share Your Thoughts</h2>
+
+                <!-- Rating -->
+                <div class="rating-container">
+                    <h3 id="ratingTitle">How do you rate this blog?</h3>
+                    <div class="rating-stars">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <p id="ratingText" style="color: var(--text-gray); margin-top: 10px;">Click to rate</p>
+                </div>
+
+                <!-- Comment Form -->
+                <form id="commentForm" class="comment-form">
+                    <div class="form-group">
+                        <label for="commentName" class="form-label" id="nameLabel">Your Name</label>
+                        <input type="text" id="commentName" class="form-input" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="commentEmail" class="form-label" id="emailLabel">Email Address</label>
+                        <input type="email" id="commentEmail" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="commentText" class="form-label" id="commentLabel">Your Comment</label>
+                        <textarea id="commentText" class="form-input form-textarea" placeholder="Share your thoughts..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span id="submitText">Post Comment</span>
+                    </button>
+                </form>
+
+                <!-- Comments List -->
+                <div class="comments-list">
+                    <h3 id="commentsListTitle" style="margin-bottom: 30px; color: var(--accent);">Recent Comments</h3>
+                    <div id="commentsList">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4 id="footerAbout">About This Blog</h4>
+                    <p class="footer-text" id="footerAboutText">
+                        A personal blog sharing thoughts, stories, and creative ideas from the shadows. Focused on technology, design, and personal growth.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://t.me/Dark_Night_123" target="_blank" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4 id="footerLinks">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> <span id="footerHome">Home</span></a></li>
+                        <li><a href="#blog"><i class="fas fa-chevron-right"></i> <span id="footerBlog">Blog</span></a></li>
+                        <li><a href="#media"><i class="fas fa-chevron-right"></i> <span id="footerMedia">Media</span></a></li>
+                        <li><a href="#music"><i class="fas fa-chevron-right"></i> <span id="footerMusic">Music</span></a></li>
+                        <li><a href="#comments"><i class="fas fa-chevron-right"></i> <span id="footerComments">Comments</span></a></li>
+                        <li><a href="gallery.html" target="_blank"><i class="fas fa-chevron-right"></i> <span id="footerGallery">Gallery</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 id="footerContact">Contact & Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:amirfakhrai747@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="https://t.me/Dark_Night_123" target="_blank"><i class="fab fa-telegram"></i> Telegram</a></li>
+                        <li><a href="#comments"><i class="fas fa-comments"></i> Leave Feedback</a></li>
+                        <li><a href="admin.html"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p id="copyrightText">© 2024 My Blog. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by Amir FN</p>
+            </div>
         </div>
     </footer>
-
-
-    </section>
-    <div class="rating">
-        <span class="star" data-value="5">&#9733;</span>
-        <span class="star" data-value="4">&#9733;</span>
-        <span class="star" data-value="3">&#9733;</span>
-        <span class="star" data-value="2">&#9733;</span>
-        <span class="star" data-value="1">&#9733;</span>
-    </div>
-
-    <section id="videos" class="videos">
-        <div class="container">
-            <h2>Featured Video</h2>
-            <div id="video-display" style="margin-top: 20px; text-align: center;">
-
-
-
-            </div>
-            <div id="video-display" style="margin-top: 20px; text-align: center;">
-
-                <h1 id="hero-heading">ویدیویی برای نمایش وجود نداره</h1>
-            </div>
-        </div>
-    </section>
-    <button id="langBtn">Switch to Persian</button>
-
-
-
-
     <script>
-        // زمان بارگذاری صفحه
-        window.onload = function() {
-            const message = document.getElementById('christmasMessage');
-            message.style.display = 'block'; // نمایش پیام
-        };
-    </script>
-    <script>
-        window.onload = function() {
-            // بررسی اینکه آیا کوکی برای پیام "Merry Christmas" وجود دارد یا نه
-            if (getCookie('christmasMessageShown') !== 'true') {
-                const message = document.getElementById('christmasMessage');
-                message.style.display = 'block'; // نمایش پیام
+        // ===== Music Player JavaScript =====
+        class MusicPlayer {
+            constructor() {
+                this.audio = new Audio();
+                this.currentSongIndex = 0;
+                this.isPlaying = false;
+                this.volume = 0.7;
 
-                // تنظیم انیمیشن
-                setTimeout(() => {
-                    message.style.display = 'none'; // مخفی کردن پیام بعد از 4 ثانیه
-                }, 4000);
+                // آهنگ‌ها - اینجا شما باید آدرس فایل‌های MP3 خود را قرار دهید
+                this.playlist = [{
+                    title: "Fear of the Dark",
+                    artist: "Iron Maiden",
+                    album: "Album 1",
+                    src: "Fear of the Dark   Iron Maiden.mp3", // جایگزین کن با آدرس واقعی
+                    duration: "7:18",
+                    cover: "pic1.jpeg" // جایگزین کن با آدرس واقعی
+                }, {
+                    title: "The Trooper",
+                    artist: "Iron Maiden",
+                    album: "Album 1",
+                    src: "The Trooper   Iron Maiden.mp3", // جایگزین کن با آدرس واقعی
+                    duration: "4:12",
+                    cover: "pic2.jpeg" // جایگزین کن با آدرس واقعی
+                }, {
+                    title: "Wasted Years",
+                    artist: "Iron Maiden",
+                    album: "Album 1",
+                    src: "1_2 - Wasted Years (2015 Remaster) - Iron Maiden (320).mp3", // جایگزین کن با آدرس واقعی
+                    duration: "5:09",
+                    cover: "pic3.jpeg" // جایگزین کن با آدرس واقعی
+                }, {
+                    title: "Seventh Son of a Seventh Son",
+                    artist: "Iron maiden",
+                    album: "Album 1",
+                    src: "1_5_Seventh_Son_of_a_Seventh_Son_2015_Remaster_Iron_Maiden_320.mp3", // جایگزین کن با آدرس واقعی
+                    duration: "9:54",
+                    cover: "pic4.jpeg" // جایگزین کن با آدرس واقعی
+                }, {
+                    title: "Flying",
+                    artist: "Anathema",
+                    album: "Album 1",
+                    src: "1_9 - Flying - Anathema (320).mp3", // جایگزین کن با آدرس واقعی
+                    duration: "6:27",
+                    cover: "pic5.jpeg" // جایگزین کن با آدرس واقعی
+                }, {
+                    title: "Dying To Love",
+                    artist: "Bad Omens",
+                    album: "Album 1",
+                    src: "Bad Omens - Dying To Love.mp3", // جایگزین کن با آدرس واقعی
+                    duration: "4:16",
+                    cover: "pic6.jpeg" // جایگزین کن با آدرس واقعی
+                }];
 
-                // بعد از نمایش پیام، کوکی برای نشان دادن اینکه پیام دیده شده تنظیم می‌شود
-                setCookie('christmasMessageShown', 'true', 365); // کوکی برای 365 روز ذخیره می‌شود
+                this.init();
             }
-        };
 
-        // تابع برای دریافت کوکی
-        function getCookie(name) {
-            let nameEQ = name + "=";
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            init() {
+                this.setupElements();
+                this.setupEventListeners();
+                this.loadPlaylist();
+                this.setVolume(this.volume);
+                this.loadFirstSong(); // فقط بارگذاری اولیه، بدون پخش
             }
-            return null;
-        }
 
-        // تابع برای تنظیم کوکی
-        function setCookie(name, value, days) {
-            let date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // مدت زمان کوکی
-            let expires = "expires=" + date.toUTCString();
-            document.cookie = name + "=" + value + ";" + expires + ";path=/"; // ذخیره کوکی
-        }
-    </script>
+            setupElements() {
+                this.elements = {
+                    playBtn: document.getElementById('playBtn'),
+                    prevBtn: document.getElementById('prevBtn'),
+                    nextBtn: document.getElementById('nextBtn'),
+                    progressBar: document.getElementById('progressBar'),
+                    progress: document.getElementById('progress'),
+                    currentTime: document.getElementById('currentTime'),
+                    duration: document.getElementById('duration'),
+                    volumeBar: document.getElementById('volumeBar'),
+                    volumeLevel: document.getElementById('volumeLevel'),
+                    currentSongTitle: document.getElementById('currentSongTitle'),
+                    currentArtist: document.getElementById('currentArtist'),
+                    currentAlbum: document.getElementById('currentAlbum'),
+                    albumCover: document.getElementById('albumCover'),
+                    playlistItems: document.getElementById('playlistItems'),
+                    playlistTime: document.getElementById('playlistTime')
+                };
+            }
 
-    <script>
-        // Add smooth scroll to all links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+            setupEventListeners() {
+                // Play/Pause button
+                this.elements.playBtn.addEventListener('click', () => this.togglePlay());
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                // Previous/Next buttons
+                this.elements.prevBtn.addEventListener('click', () => this.prevSong());
+                this.elements.nextBtn.addEventListener('click', () => this.nextSong());
+
+                // Progress bar
+                this.elements.progressBar.addEventListener('click', (e) => this.seek(e));
+
+                // Volume control
+                this.elements.volumeBar.addEventListener('click', (e) => this.changeVolume(e));
+
+                // Audio events
+                this.audio.addEventListener('timeupdate', () => this.updateProgress());
+                this.audio.addEventListener('loadedmetadata', () => this.updateDuration());
+                this.audio.addEventListener('ended', () => this.nextSong());
+            }
+
+            loadFirstSong() {
+                // فقط آهنگ اول را بارگذاری کن بدون پخش
+                const song = this.playlist[0];
+
+                // آپدیت اطلاعات آهنگ
+                this.elements.currentSongTitle.textContent = song.title;
+                this.elements.currentArtist.textContent = song.artist;
+                this.elements.currentAlbum.textContent = song.album;
+
+                // آپدیت کاور آلبوم
+                if (song.cover) {
+                    this.elements.albumCover.innerHTML = `<img src="${song.cover}" alt="${song.album}">`;
+                } else {
+                    this.elements.albumCover.innerHTML = `<i class="fas fa-music"></i>`;
+                }
+
+                // ست کردن آهنگ بدون پخش
+                this.audio.src = song.src;
+                this.audio.load();
+
+                // آپدیت وضعیت دکمه
+                this.isPlaying = false;
+                this.elements.playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                this.elements.playBtn.title = 'Play';
+
+                // آپدیت آیتم فعال در پلی‌لیست
+                document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                    item.classList.toggle('active', i === 0);
                 });
-            });
-        });
-
-        // Add animation on scroll for bio section
-        window.addEventListener('scroll', function() {
-            const bioSection = document.querySelector('.bio-section');
-            const sectionPos = bioSection.getBoundingClientRect().top;
-            const screenPos = window.innerHeight / 1.3;
-
-            if (sectionPos < screenPos) {
-                bioSection.classList.add('appear');
             }
-        });
-        // Day-Night Toggle Functionality
-        const toggle = document.getElementById('toggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('night-mode');
-        });
 
-        // Language Switcher Functionality
-        const langBtn = document.getElementById('langBtn');
-        let isEnglish = true;
+            loadPlaylist() {
+                this.elements.playlistItems.innerHTML = '';
+                let totalTime = 0;
 
+                this.playlist.forEach((song, index) => {
+                    // محاسبه زمان کل
+                    const timeParts = song.duration.split(':');
+                    if (timeParts.length === 2) {
+                        totalTime += parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+                    }
 
+                    const item = document.createElement('div');
+                    item.className = 'playlist-item';
+                    if (index === this.currentSongIndex) {
+                        item.classList.add('active');
+                    }
 
-        langBtn.addEventListener('click', () => {
-            if (isEnglish) {
-                document.getElementById('title').innerText = 'به وبلاگ من خوش آمدید';
-                document.getElementById('hero-heading').innerText = 'وبلاگ من، جایی برای اشتراک‌گذاری ایده‌ها';
-                document.getElementById('hero-text').innerText = '...مطالب، داستان‌ها و نظرات من ';
-                document.getElementById('start-reading').innerText = 'شروع به خواندن کنید';
-                document.getElementById('blog-heading').innerText = 'آخرین مطالب';
-                document.getElementById('post-title-1').innerText = 'رستاخیز خاکستر';
-                document.getElementById('post-summary-1').innerText = `
-                روزی ققنوسی فروتن در غاری تاریک و تنها گرفتار شده بود. آتش قلبش خاموش شده بود و احساس می‌کرد دیگر نمی‌تواند برخیزد. 
-                روزی طوفانی سهمگین شروع شد و غار را با باران و گل و لای پر کرد. ققنوس زیر لایه‌هایی از خاک و آوار دفن شد.
-                
-                در ابتدا فکر کرد: "این پایان است." اما وقتی طوفان آرام شد، جرقه‌ای در سینه‌اش روشن شد. فهمید که گل و لای قبرش نیست، بلکه آزمونش است.
-                
-                با تمام توانش، ققنوس شروع به پنجه کشیدن و سوزاندن لایه‌های خاک کرد. هر تلاش، بال‌هایش را قوی‌تر و آتشش را روشن‌تر می‌کرد. 
-                سرانجام، در انفجاری خیره‌کننده از شعله‌ها، از زمین بیرون آمد و با نوری سوزان به آسمان اوج گرفت، نوری که از مایل‌ها دورتر دیده می‌شد.
+                    item.innerHTML = `
+                    <div class="playlist-item-number">${index + 1}</div>
+                    <div class="playlist-item-info">
+                        <div class="playlist-item-title">${song.title}</div>
+                        <div class="playlist-item-artist">${song.artist}</div>
+                    </div>
+                    <div class="playlist-item-duration">${song.duration}</div>
                 `;
 
-                document.getElementById('read-more-1').innerText = 'ادامه مطلب';
-                document.getElementById('post-summary-2').innerText =
-                    "کریسمس مبارک! 🎄 در شب کریسمس برفی، یک پسر کوچولو با اشتیاق منتظر سنتا بود. با نزدیک شدن به نیمه‌شب، صدای نرم و آرامی از شومینه شنید. او به سرعت به طرف شومینه دوید و هدیه‌ای کوچک برای خود پیدا کرد. این هدیه بزرگترین هدیه نبود، اما خاص‌ترین بود. سنتا برای او یادداشتی گذاشته بود که نوشته بود: 'بهترین هدیه، عشق و مهربانی است. آن را با هر کسی که ملاقات می‌کنی به اشتراک بگذار!' پسر لبخند زد و تصمیم گرفت شادی و مهربانی را در همه جا پخش کند و به همه یادآوری کند که کریسمس درباره‌ی عشق است، نه فقط هدایا.";
+                    item.addEventListener('click', () => this.playSong(index));
+                    this.elements.playlistItems.appendChild(item);
+                });
 
-                document.getElementById('read-more-2').innerText = 'ادامه مطلب';
-                langBtn.innerText = 'Switch to English';
-                isEnglish = false;
-            } else {
-                document.getElementById('title').innerText = 'Welcome to My Blog';
-                document.getElementById('hero-heading').innerText = 'My Blog, A Place to Share Ideas';
-                document.getElementById('hero-text').innerText = 'Thoughts, stories, and opinions on the world around us';
-                document.getElementById('start-reading').innerText = 'Start Reading';
-                document.getElementById('blog-heading').innerText = 'Latest Posts';
-                document.getElementById('post-title-1').innerText = 'The Rise from Ashes';
-                document.getElementById('post-summary-1').innerHTML = `
-Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers of dirt and debris.<br><br>
-
-At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest. It realized the mud was not its grave—it was its trial.<br><br>
-
-With every ounce of strength, the phoenix clawed and burned through the layers of dirt. Each struggle made its wings stronger, its fire brighter. Finally, it burst out of the earth in a dazzling explosion of flames, soaring into the skies with a fiery glow that could be seen for miles.
-`;
-
-                document.getElementById('read-more-1').innerText = 'Read More';
-                document.getElementById('post-summary-2').innerText =
-                    "Merry Christmas! 🎄 On a snowy Christmas Eve, a little boy was waiting eagerly for Santa. As midnight approached, he heard a soft sound coming from the chimney. He rushed to the fireplace and saw a small gift waiting for him. It wasn't the biggest present, but it was the most special. Santa had left him a note that said, 'The best gift is love and kindness. Share it with everyone you meet!' The boy smiled and decided to spread joy and kindness all around, reminding everyone that Christmas is about love, not just gifts.";
-
-
-                document.getElementById('read-more-2').innerText = 'Read More';
-                langBtn.innerText = 'Switch to Persian';
-                isEnglish = true;
+                // نمایش زمان کل
+                const minutes = Math.floor(totalTime / 60);
+                const seconds = totalTime % 60;
+                this.elements.playlistTime.textContent = `Total: ${minutes}:${seconds.toString().padStart(2, '0')}`;
             }
-        });
-        const commentForm = document.getElementById('comment-form');
-        const commentList = document.getElementById('comment-list');
 
-        commentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const commentText = document.getElementById('comment-text').value;
-            if (commentText) {
-                const newComment = document.createElement('div');
-                newComment.className = 'comment-item';
-                newComment.textContent = commentText;
-                commentList.appendChild(newComment);
-                commentForm.reset();
+            playSong(index) {
+                this.currentSongIndex = index;
+                const song = this.playlist[index];
+
+                // آپدیت اطلاعات آهنگ
+                this.elements.currentSongTitle.textContent = song.title;
+                this.elements.currentArtist.textContent = song.artist;
+                this.elements.currentAlbum.textContent = song.album;
+
+                // آپدیت کاور آلبوم
+                if (song.cover) {
+                    this.elements.albumCover.innerHTML = `<img src="${song.cover}" alt="${song.album}">`;
+                } else {
+                    this.elements.albumCover.innerHTML = `<i class="fas fa-music"></i>`;
+                }
+
+                // ست کردن آهنگ
+                this.audio.src = song.src;
+                this.audio.load();
+
+                // حالت پلی آماده، اما پخش نمی‌شود
+                this.isPlaying = false;
+                this.elements.playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                this.elements.playBtn.title = 'Play';
+
+                // آپدیت آیتم فعال در پلی‌لیست
+                document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                    item.classList.toggle('active', i === index);
+                });
             }
-        });
-        const stars = document.querySelectorAll('.star');
-        const ratingResult = document.getElementById('rating-result');
 
-        stars.forEach(star => {
-            star.addEventListener('click', () => {
-                stars.forEach(s => s.style.color = '#ccc');
-                star.style.color = '#f7c08a';
-                const rating = star.getAttribute('data-value');
-                ratingResult.textContent = `Your rating: ${rating}`;
-            });
-        });
-    </script>
-    <script>
-        // ایجاد برف در صفحه
-        function createSnowflakes() {
-            const snowflakes = ['❄', '❆', '✦', '✸', '❉'];
-            const numberOfSnowflakes = 70;
-            const snowContainer = document.body;
+            togglePlay() {
+                if (this.isPlaying) {
+                    this.pause();
+                } else {
+                    this.play();
+                }
+            }
 
-            for (let i = 0; i < numberOfSnowflakes; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerText = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                snowContainer.appendChild(snowflake);
+            play() {
+                this.audio.play();
+                this.isPlaying = true;
+                this.elements.playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                this.elements.playBtn.title = 'Pause';
+            }
+
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                this.elements.playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                this.elements.playBtn.title = 'Play';
+            }
+
+            prevSong() {
+                this.currentSongIndex = (this.currentSongIndex - 1 + this.playlist.length) % this.playlist.length;
+                this.playSong(this.currentSongIndex);
+                if (this.isPlaying) {
+                    this.play(); // اگر در حال پخش بود، آهنگ جدید را پخش کن
+                }
+            }
+
+            nextSong() {
+                this.currentSongIndex = (this.currentSongIndex + 1) % this.playlist.length;
+                this.playSong(this.currentSongIndex);
+                if (this.isPlaying) {
+                    this.play(); // اگر در حال پخش بود، آهنگ جدید را پخش کن
+                }
+            }
+
+            seek(e) {
+                const rect = this.elements.progressBar.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                this.audio.currentTime = pos * this.audio.duration;
+            }
+
+            changeVolume(e) {
+                const rect = this.elements.volumeBar.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                this.setVolume(pos);
+            }
+
+            setVolume(level) {
+                this.volume = Math.max(0, Math.min(1, level));
+                this.audio.volume = this.volume;
+                this.elements.volumeLevel.style.width = `${this.volume * 100}%`;
+            }
+
+            updateProgress() {
+                if (this.audio.duration) {
+                    const percent = (this.audio.currentTime / this.audio.duration) * 100;
+                    this.elements.progress.style.width = `${percent}%`;
+
+                    // آپدیت زمان کنونی
+                    this.elements.currentTime.textContent = this.formatTime(this.audio.currentTime);
+                }
+            }
+
+            updateDuration() {
+                this.elements.duration.textContent = this.formatTime(this.audio.duration);
+            }
+
+            formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
             }
         }
 
-        // فعال‌سازی برف
-        createSnowflakes();
+        // ===== LEAVES ANIMATION =====
+        class LeavesAnimation {
+            constructor() {
+                this.container = document.getElementById('leafContainer');
+                this.leaves = ['🍁', '🍂'];
+                this.maxLeaves = 25;
+                this.animationDuration = 20000;
+                this.init();
+            }
+
+            init() {
+                this.createLeaves();
+                setInterval(() => this.refreshLeaves(), this.animationDuration);
+            }
+
+            createLeaves() {
+                this.container.innerHTML = '';
+                for (let i = 0; i < this.maxLeaves; i++) {
+                    setTimeout(() => this.createLeaf(), Math.random() * 3000);
+                }
+            }
+
+            createLeaf() {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                const leafType = this.leaves[Math.floor(Math.random() * this.leaves.length)];
+                leaf.textContent = leafType;
+
+                const startX = Math.random() * 100;
+                const endX = startX + (Math.random() * 30 - 15);
+                const size = Math.random() * 20 + 20;
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 5;
+                const rotation = Math.random() * 720;
+
+                leaf.style.left = `${startX}vw`;
+                leaf.style.fontSize = `${size}px`;
+                leaf.style.animationDuration = `${duration}s`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.opacity = Math.random() * 0.5 + 0.3;
+                leaf.style.filter = `hue-rotate(${Math.random() * 60}deg)`;
+
+                leaf.animate([{
+                    transform: `translate(0, 0) rotate(0deg)`,
+                    opacity: 0.8
+                }, {
+                    transform: `translate(${endX - startX}vw, 100vh) rotate(${rotation}deg)`,
+                    opacity: 0
+                }], {
+                    duration: duration * 1000,
+                    delay: delay * 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    fill: 'forwards'
+                });
+
+                this.container.appendChild(leaf);
+                setTimeout(() => leaf.remove(), (duration + delay) * 1000);
+            }
+
+            refreshLeaves() {
+                this.createLeaves();
+            }
+        }
+
+        // ===== NOTIFICATION SYSTEM =====
+        class NotificationSystem {
+            constructor() {
+                this.notification = document.getElementById('notification');
+                this.textElement = document.getElementById('notificationText');
+                this.iconElement = this.notification.querySelector('i');
+                this.timeout = null;
+            }
+
+            show(message, type = 'success', duration = 3000) {
+                if (this.timeout) {
+                    clearTimeout(this.timeout);
+                    this.notification.classList.remove('show');
+                }
+
+                this.textElement.textContent = message;
+                if (type === 'error') {
+                    this.notification.classList.add('error');
+                    this.iconElement.className = 'fas fa-exclamation-circle';
+                } else {
+                    this.notification.classList.remove('error');
+                    this.iconElement.className = 'fas fa-check-circle';
+                }
+
+                setTimeout(() => this.notification.classList.add('show'), 50);
+                this.timeout = setTimeout(() => this.hide(), duration);
+            }
+
+            hide() {
+                this.notification.classList.remove('show');
+                this.timeout = null;
+            }
+        }
+
+        // ===== COMMENT SYSTEM =====
+        class CommentSystem {
+            constructor() {
+                this.commentForm = document.getElementById('commentForm');
+                this.commentsList = document.getElementById('commentsList');
+                this.stars = document.querySelectorAll('.star');
+                this.selectedRating = 0;
+                this.notification = new NotificationSystem();
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.loadComments();
+            }
+
+            setupEventListeners() {
+                this.stars.forEach(star => {
+                    star.addEventListener('click', (e) => this.handleStarClick(e));
+                    star.addEventListener('mouseenter', (e) => this.handleStarHover(e, true));
+                    star.addEventListener('mouseleave', () => this.handleStarHover(null, false));
+                });
+
+                this.commentForm.addEventListener('submit', (e) => this.handleSubmit(e));
+            }
+
+            handleStarClick(event) {
+                const value = parseInt(event.target.dataset.value);
+                this.selectedRating = value;
+
+                this.stars.forEach((star, index) => {
+                    if (index < value) star.classList.add('active');
+                    else star.classList.remove('active');
+                });
+
+                const ratingText = document.getElementById('ratingText');
+                const ratingMessages = ['Very Poor', 'Poor', 'Average', 'Good', 'Excellent'];
+                ratingText.textContent = `You rated: ${ratingMessages[value - 1]} (${value} stars)`;
+            }
+
+            handleStarHover(event, isEntering) {
+                if (!isEntering) {
+                    this.stars.forEach((star, index) => {
+                        if (index < this.selectedRating) star.classList.add('active');
+                        else star.classList.remove('active');
+                    });
+                    return;
+                }
+
+                const value = parseInt(event.target.dataset.value);
+                this.stars.forEach((star, index) => {
+                    if (index < value) star.style.color = 'gold';
+                    else star.style.color = '';
+                });
+            }
+
+            async handleSubmit(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('commentName').value.trim();
+                const email = document.getElementById('commentEmail').value.trim();
+                const text = document.getElementById('commentText').value.trim();
+
+                if (!name || !email || !text) {
+                    this.notification.show('Please fill in all fields', 'error');
+                    return;
+                }
+
+                if (!this.validateEmail(email)) {
+                    this.notification.show('Please enter a valid email address', 'error');
+                    return;
+                }
+
+                if (this.selectedRating === 0) {
+                    this.notification.show('Please select a rating', 'error');
+                    return;
+                }
+
+                const comment = {
+                    id: Date.now(),
+                    name: name,
+                    email: email,
+                    text: text,
+                    rating: this.selectedRating,
+                    date: new Date().toISOString(),
+                    timestamp: Date.now()
+                };
+
+                this.saveComment(comment);
+                this.addCommentToDisplay(comment);
+                this.commentForm.reset();
+                this.selectedRating = 0;
+                this.stars.forEach(star => star.classList.remove('active'));
+                document.getElementById('ratingText').textContent = 'Click to rate';
+                this.notification.show('Thank you for your comment!');
+            }
+
+            validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            async saveComment(comment) {
+                try {
+                    let comments = JSON.parse(localStorage.getItem('blog_comments') || '[]');
+                    comments.unshift(comment);
+                    localStorage.setItem('blog_comments', JSON.stringify(comments.slice(0, 50)));
+                    this.saveToHTMLFile(comment);
+                } catch (error) {
+                    console.error('Error saving comment:', error);
+                    this.notification.show('Error saving comment', 'error');
+                }
+            }
+
+            saveToHTMLFile(comment) {
+                let htmlComments = localStorage.getItem('blog_comments_html') || '';
+                const commentHTML = `
+<!-- Comment #${comment.id} -->
+<div class="comment-item">
+    <div class="comment-header">
+        <div class="comment-author">
+            <div class="author-avatar-small">${comment.name.charAt(0).toUpperCase()}</div>
+            <div class="comment-info">
+                <h4>${this.escapeHtml(comment.name)}</h4>
+                <p class="comment-date">${new Date(comment.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}</p>
+            </div>
+        </div>
+        <div class="comment-rating">
+            ${'★'.repeat(comment.rating)}
+        </div>
+    </div>
+    <div class="comment-content">
+        ${this.escapeHtml(comment.text)}
+    </div>
+</div>
+<!-- End Comment #${comment.id} -->
+`;
+                htmlComments = commentHTML + htmlComments;
+                localStorage.setItem('blog_comments_html', htmlComments);
+            }
+
+            loadComments() {
+                try {
+                    const comments = JSON.parse(localStorage.getItem('blog_comments') || '[]');
+                    this.commentsList.innerHTML = '';
+
+                    if (comments.length === 0) {
+                        this.commentsList.innerHTML = `
+                        <div class="comment-item">
+                            <div class="comment-content" style="text-align: center; color: var(--text-gray); padding: 40px 20px;">
+                                <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 20px; display: block;"></i>
+                                <h3 id="noCommentsTitle">No comments yet</h3>
+                                <p id="noCommentsText">Be the first to share your thoughts!</p>
+                            </div>
+                        </div>
+                    `;
+                        return;
+                    }
+
+                    comments.forEach((comment, index) => {
+                        setTimeout(() => this.addCommentToDisplay(comment), index * 100);
+                    });
+
+                } catch (error) {
+                    console.error('Error loading comments:', error);
+                }
+            }
+
+            addCommentToDisplay(comment) {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment-item';
+                commentElement.style.animationDelay = `${Math.random() * 0.3}s`;
+
+                commentElement.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <div class="author-avatar-small">${comment.name.charAt(0).toUpperCase()}</div>
+                        <div class="comment-info">
+                            <h4>${this.escapeHtml(comment.name)}</h4>
+                            <p class="comment-date">${new Date(comment.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}</p>
+                        </div>
+                    </div>
+                    <div class="comment-rating">
+                        ${'★'.repeat(comment.rating)}
+                    </div>
+                </div>
+                <div class="comment-content">
+                    ${this.escapeHtml(comment.text)}
+                </div>
+            `;
+
+                setTimeout(() => commentElement.classList.add('visible'), 50);
+                this.commentsList.prepend(commentElement);
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // ===== LANGUAGE SYSTEM =====
+        class LanguageSystem {
+            constructor() {
+                this.currentLang = 'en';
+                this.translations = {
+                    en: this.getEnglishTranslations(),
+                    fa: this.getPersianTranslations()
+                };
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.loadLanguage();
+            }
+
+            setupEventListeners() {
+                document.getElementById('langBtn').addEventListener('click', () => this.toggleLanguage());
+            }
+
+            loadLanguage() {
+                const savedLang = localStorage.getItem('blog_language') || 'en';
+                this.setLanguage(savedLang);
+            }
+
+            toggleLanguage() {
+                const newLang = this.currentLang === 'en' ? 'fa' : 'en';
+                this.setLanguage(newLang);
+                localStorage.setItem('blog_language', newLang);
+            }
+
+            setLanguage(lang) {
+                this.currentLang = lang;
+                const translation = this.translations[lang];
+
+                Object.keys(translation).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = translation[key];
+                        } else {
+                            element.textContent = translation[key];
+                        }
+                    }
+                });
+
+                document.getElementById('langText').textContent = lang === 'en' ? 'فارسی' : 'English';
+                document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+                document.documentElement.lang = lang;
+
+                if (lang === 'fa') {
+                    document.querySelectorAll('.footer-links a i').forEach(icon => {
+                        icon.className = icon.className.replace('fa-chevron-right', 'fa-chevron-left');
+                    });
+                } else {
+                    document.querySelectorAll('.footer-links a i').forEach(icon => {
+                        icon.className = icon.className.replace('fa-chevron-left', 'fa-chevron-right');
+                    });
+                }
+            }
+
+            getEnglishTranslations() {
+                return {
+                    siteTitle: 'My Blog',
+                    navHome: 'Home',
+                    navBlog: 'Blog',
+                    navMedia: 'Media',
+                    navMusic: 'Music',
+                    navSpotify: 'Spotify',
+                    navTelegram: 'Telegram',
+                    navGallery: 'Gallery',
+                    navLock: 'LOCK',
+                    heroTitle: 'My Blog, A Place to Share Ideas',
+                    heroSubtitle: 'Thoughts, stories, and opinions from the shadows. Dive into a world of creativity and inspiration.',
+                    heroBtn: 'Start Reading',
+                    blogTitle: 'Latest Posts',
+                    postCategory1: 'Holiday',
+                    postDate1: 'December 25, 2024',
+                    postTitle1: 'A Christmas Story: The Magic of Giving',
+                    postExcerpt1: 'Merry Christmas! 🎄 On a snowy Christmas Eve, a little boy was waiting eagerly for Santa. As midnight approached, he heard a soft sound coming from the chimney. He rushed to the fireplace and saw a small gift waiting for him. It wasn\'t the biggest present, but it was the most special...',
+                    postCategory2: 'Inspiration',
+                    postDate2: 'December 24, 2024',
+                    postTitle2: 'The Rise from Ashes: A Phoenix\'s Journey',
+                    postExcerpt2: 'Once, there was a humble phoenix trapped in a dark, lonely cave. The fire in its heart had faded, and it felt it could no longer rise. One day, a fierce storm struck, flooding the cave with heavy rain and mud. The phoenix was buried under layers of dirt and debris. At first, it thought, "This is the end." But as the storm calmed, a spark of fire reignited within its chest...',
+                    loadMoreText: 'Load More Posts',
+                    aboutTitle: 'About This Blog',
+                    aboutText: 'Welcome to my personal space on the internet. This blog is a collection of thoughts, stories, and ideas that I find worth sharing. From technology and design to personal growth and creative writing, this is where I document my journey and insights.',
+                    aboutText2: 'The dark theme isn\'t just an aesthetic choice—it\'s a conscious decision to create a focused, immersive reading experience that\'s easy on the eyes during late-night reading sessions.',
+                    mediaTitle: 'Media & Entertainment',
+                    youtubeTitle: 'Featured Video',
+                    copyBtn1: 'Copy Link',
+                    noVideoTitle: 'Video',
+                    noVideoText: 'YOU CAN WHATCH. Stay tuned for updates!',
+                    spotifyTitle: 'Spotify Playlist',
+                    copyBtn2: 'Copy Link',
+                    playlistTitle: 'Dark Vibes Collection',
+                    playlistInfo: 'Curated by Amir FN• 50+ tracks • 3h 45m',
+                    playlistDesc: 'A carefully curated selection of dark, atmospheric, and emotional music perfect for coding sessions, late-night reading, and creative work. Updated weekly with new discoveries.',
+                    listenBtn: 'Listen on Spotify',
+                    commentsTitle: 'Share Your Thoughts',
+                    ratingTitle: 'How do you rate this blog?',
+                    ratingText: 'Click to rate',
+                    nameLabel: 'Your Name',
+                    emailLabel: 'Email Address',
+                    commentLabel: 'Your Comment',
+                    submitText: 'Post Comment',
+                    commentsListTitle: 'Recent Comments',
+                    noCommentsTitle: 'No comments yet',
+                    noCommentsText: 'Be the first to share your thoughts!',
+                    footerAbout: 'About This Blog',
+                    footerAboutText: 'A personal blog sharing thoughts, stories, and creative ideas from the shadows. Focused on technology, design, and personal growth.',
+                    footerLinks: 'Quick Links',
+                    footerHome: 'Home',
+                    footerBlog: 'Blog',
+                    footerMedia: 'Media',
+                    footerMusic: 'Music',
+                    footerComments: 'Comments',
+                    footerGallery: 'Gallery',
+                    footerContact: 'Contact & Support',
+                    copyrightText: '© 2024 My Blog. All rights reserved. | Designed with ❤️ by Amir FN'
+                };
+            }
+
+            getPersianTranslations() {
+                return {
+                    siteTitle: 'وبلاگ من',
+                    navHome: 'خانه',
+                    navBlog: 'وبلاگ',
+                    navMedia: 'رسانه',
+                    navMusic: 'موسیقی',
+                    navSpotify: 'اسپاتیفای',
+                    navTelegram: 'تلگرام',
+                    navGallery: 'گالری',
+                    navLock: 'قفل',
+                    heroTitle: 'وبلاگ من، مکانی برای اشتراک ایده‌ها',
+                    heroSubtitle: 'افکار، داستان‌ها و نظرات . به دنیایی از خلاقیت و الهام وارد شوید.',
+                    heroBtn: 'شروع خواندن',
+                    blogTitle: 'آخرین مطالب',
+                    postCategory1: 'تعطیلات',
+                    postDate1: '۱۴۰۳ دی ۴',
+                    postTitle1: 'داستان کریسمس: جادوی بخشش',
+                    postExcerpt1: 'کریسمس مبارک! 🎄 در شب کریسمس برفی، پسری کوچک با اشتیاق منتظر بابانوئل بود. با نزدیک شدن به نیمه‌شب، صدای ملایمی از شومینه شنید. به سمت شومینه دوید و هدیه‌ای کوچک دید که منتظرش بود. این بزرگترین هدیه نبود، اما خاص‌ترین بود...',
+                    postCategory2: 'الهام بخش',
+                    postDate2: '۱۴۰۳ دی ۳',
+                    postTitle2: 'طلوع از خاکستر: سفر ققنوس',
+                    postExcerpt2: 'روزی، ققنوسی فروتن در غاری تاریک و تنها گرفتار شده بود. آتش قلبش خاموش شده بود و احساس می‌کرد دیگر نمی‌تواند برخیزد. روزی طوفانی سهمگین آمد و غار را با باران و گل پر کرد. ققنوس زیر لایه‌هایی از خاک و آوار دفن شد. در ابتدا فکر کرد: "این پایان است." اما وقتی طوفان آرام شد، جرقه‌ای در سینه‌اش روشن شد...',
+                    loadMoreText: 'مطالب بیشتر',
+                    aboutTitle: 'درباره این وبلاگ',
+                    aboutText: 'به فضای شخصی من در اینترنت خوش آمدید. این وبلاگ مجموعه‌ای از افکار، داستان‌ها و ایده‌هایی است که ارزش اشتراک‌گذاری دارند. از تکنولوژی و طراحی تا رشد شخصی و نویسندگی خلاق، اینجا جایی است که سفر و بینش‌هایم را ثبت می‌کنم.',
+                    aboutText2: 'تم تاریک فقط یک انتخاب زیبایی‌شناختی نیست—این یک تصمیم آگاهانه برای ایجاد تجربه‌ای متمرکز و غرق‌کننده برای مطالعه است که در جلسات مطالعه نیمه‌شب برای چشم‌ها آسان باشد.',
+                    mediaTitle: 'رسانه و سرگرمی',
+                    youtubeTitle: 'ویدیوی منتخب',
+                    copyBtn1: 'کپی لینک',
+                    noVideoTitle: 'ویدیو',
+                    noVideoText: 'میتونی تماشا کنی. برای به‌روزرسانی‌ها منتظر بمانید!',
+                    spotifyTitle: 'پلی‌لیست اسپاتیفای',
+                    copyBtn2: 'کپی لینک',
+                    playlistTitle: 'مجموعه ویب تاریک',
+                    playlistInfo: 'گردآوری شده توسط امیر • ۵۰+ آهنگ • ۳ ساعت ۴۵ دقیقه',
+                    playlistDesc: 'انتخابی دقیق از موسیقی تاریک، جوی و احساسی که برای جلسات کدنویسی، مطالعه نیمه‌شب و کار خلاقانه عالی است. هر هفته با کشفیات جدید به‌روز می‌شود.',
+                    listenBtn: 'گوش دادن در اسپاتیفای',
+                    commentsTitle: 'نظرات خود را به اشتراک بگذارید',
+                    ratingTitle: 'به این وبلاگ چه امتیازی می‌دهید؟',
+                    ratingText: 'برای امتیازدهی کلیک کنید',
+                    nameLabel: 'نام شما',
+                    emailLabel: 'آدرس ایمیل',
+                    commentLabel: 'نظر شما',
+                    submitText: 'ارسال نظر',
+                    commentsListTitle: 'نظرات اخیر',
+                    noCommentsTitle: 'هنوز نظری وجود ندارد',
+                    noCommentsText: 'اولین نفری باشید که نظر می‌دهد!',
+                    footerAbout: 'درباره این وبلاگ',
+                    footerAboutText: 'یک وبلاگ شخصی که افکار، داستان‌ها و ایده‌های خلاقانه را  به اشتراک می‌گذارد. متمرکز بر تکنولوژی، طراحی و رشد شخصی.',
+                    footerLinks: 'لینک‌های سریع',
+                    footerHome: 'خانه',
+                    footerBlog: 'وبلاگ',
+                    footerMedia: 'رسانه',
+                    footerMusic: 'موسیقی',
+                    footerComments: 'نظرات',
+                    footerGallery: 'گالری',
+                    footerContact: 'تماس و پشتیبانی',
+                    copyrightText: '© ۱۴۰۳ وبلاگ من. تمامی حقوق محفوظ است. | طراحی شده با ❤️ توسط امیر '
+                };
+            }
+        }
+
+        // ===== MAIN APPLICATION =====
+        class BlogApplication {
+            constructor() {
+                this.leavesAnimation = new LeavesAnimation();
+                this.notification = new NotificationSystem();
+                this.commentSystem = new CommentSystem();
+                this.languageSystem = new LanguageSystem();
+                this.musicPlayer = new MusicPlayer();
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.setupIntersectionObserver();
+                this.setupScrollEffects();
+                this.loadInitialData();
+
+                // هیچ پخش خودکاری وجود ندارد - کاربر باید دکمه پلی را بزند
+            }
+
+            setupEventListeners() {
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
+
+                // Mobile menu
+                document.getElementById('mobileMenuBtn').addEventListener('click', () => this.toggleMobileMenu());
+
+                // Scroll to top
+                document.getElementById('scrollTop').addEventListener('click', () => this.scrollToTop());
+
+                // Load more posts
+                document.getElementById('loadMoreBtn').addEventListener('click', () => this.loadMorePosts());
+
+                // Smooth scroll for navigation links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = anchor.getAttribute('href');
+                        if (targetId === '#') return;
+
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            // Close mobile menu if open
+                            document.getElementById('mainNav').classList.remove('active');
+
+                            // Scroll to element
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+
+                            // Update active nav link
+                            this.updateActiveNavLink(targetId);
+                        }
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const nav = document.getElementById('mainNav');
+                    const menuBtn = document.getElementById('mobileMenuBtn');
+
+                    if (nav.classList.contains('active') &&
+                        !nav.contains(e.target) &&
+                        !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                    }
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+
+                            // For post cards
+                            if (entry.target.classList.contains('post-card')) {
+                                entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                // Observe section titles
+                document.querySelectorAll('.section-title').forEach(title => {
+                    observer.observe(title);
+                });
+
+                // Observe post cards
+                document.querySelectorAll('.post-card').forEach(card => {
+                    observer.observe(card);
+                });
+
+                // Observe comment items
+                document.querySelectorAll('.comment-item').forEach(comment => {
+                    observer.observe(comment);
+                });
+            }
+
+            setupScrollEffects() {
+                let lastScrollTop = 0;
+                const header = document.getElementById('mainHeader');
+                const scrollTopBtn = document.getElementById('scrollTop');
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Header scroll effect
+                    if (scrollTop > 100) {
+                        header.classList.add('header-scrolled');
+                    } else {
+                        header.classList.remove('header-scrolled');
+                    }
+
+                    // Scroll to top button
+                    if (scrollTop > 300) {
+                        scrollTopBtn.classList.add('visible');
+                    } else {
+                        scrollTopBtn.classList.remove('visible');
+                    }
+
+                    // Parallax effect for hero
+                    const heroBg = document.querySelector('.hero-bg');
+                    if (heroBg) {
+                        heroBg.style.transform = `translateY(${scrollTop * 0.5}px)`;
+                    }
+
+                    lastScrollTop = scrollTop;
+                });
+            }
+
+            loadInitialData() {
+                // Load saved theme
+                const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('night-mode');
+                    document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            }
+
+            toggleTheme() {
+                const body = document.body;
+                const themeToggle = document.getElementById('themeToggle');
+
+                body.classList.toggle('night-mode');
+
+                if (body.classList.contains('night-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('blog_theme', 'dark');
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('blog_theme', 'light');
+                }
+            }
+
+            toggleMobileMenu() {
+                document.getElementById('mainNav').classList.toggle('active');
+
+                // Change menu icon
+                const menuIcon = document.querySelector('#mobileMenuBtn i');
+                if (document.getElementById('mainNav').classList.contains('active')) {
+                    menuIcon.className = 'fas fa-times';
+                } else {
+                    menuIcon.className = 'fas fa-bars';
+                }
+            }
+
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            loadMorePosts() {
+                this.notification.show('Loading more posts...');
+
+                // Simulate loading
+                setTimeout(() => {
+                    this.notification.show('More posts loaded successfully!');
+                }, 1000);
+            }
+
+            updateActiveNavLink(targetId) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                const activeLink = document.querySelector(`a[href="${targetId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+
+            copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    this.notification.show('Link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    this.notification.show('Failed to copy link', 'error');
+                });
+            }
+        }
+
+        // ===== GLOBAL COPY FUNCTION =====
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Create notification if app is initialized
+                if (window.blogApp && window.blogApp.notification) {
+                    window.blogApp.notification.show('Link copied to clipboard!');
+                } else {
+                    // Fallback notification
+                    alert('Link copied to clipboard!');
+                }
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                if (window.blogApp && window.blogApp.notification) {
+                    window.blogApp.notification.show('Failed to copy link', 'error');
+                }
+            });
+        }
+
+        // ===== INITIALIZE APPLICATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            window.blogApp = new BlogApplication();
+
+            // Make copy function globally available
+            window.copyToClipboard = copyToClipboard;
+
+            // Initial animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach((el, index) => {
+                    el.style.animationDelay = `${index * 0.1}s`;
+                });
+            }, 500);
+        });
     </script>
-
 </body>
-
 
 </html>

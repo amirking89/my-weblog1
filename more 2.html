@@ -7,516 +7,720 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Christmas Story 🎄</title>
     <link rel="icon" href="FreeLogoDesign _ LogoMaker - Google Chrome 1_1_2025 12_58_03 PM.png" type="image/png" sizes="128x128">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        /* تنظیمات کلی */
+        /* ===== RESET & BASE ===== */
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+         :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #141414;
+            --card-dark: #1e1e1e;
+            --accent: #f7c08a;
+            --accent-hover: #e0b07a;
+            --text-light: #f0f0f0;
+            --text-gray: #b0b0b0;
+            --border-dark: #333;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
             font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-            transition: background-color 0.5s, color 0.5s;
+            background: var(--gradient-dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+            padding-top: 80px;
+            min-height: 100vh;
+            position: relative;
         }
-        /* هدر */
         
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(247, 192, 138, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(247, 192, 138, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* ===== LEAVES ANIMATION ===== */
+        
+        .leaf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 5px rgba(247, 192, 138, 0.3));
+            user-select: none;
+        }
+        
+        .leaf:nth-child(3n) {
+            color: #ff6b6b;
+            animation-delay: 0s;
+        }
+        
+        .leaf:nth-child(3n+1) {
+            color: #4ecdc4;
+            animation-delay: 1s;
+        }
+        
+        .leaf:nth-child(3n+2) {
+            color: #ffe66d;
+            animation-delay: 2s;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* ===== HEADER ===== */
+        
+        .main-header {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-dark);
+            padding: 15px 0;
+            box-shadow: var(--shadow-dark);
+            transition: all 0.3s;
+        }
+        
+        .header-scrolled {
+            padding: 10px 0;
+            background: rgba(10, 10, 10, 0.98);
+        }
+        
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-left: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
         }
         
-        nav ul {
+        .logo i {
+            font-size: 2.5rem;
+            animation: logoPulse 3s infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-links {
             list-style: none;
             display: flex;
-            margin-right: 20px;
-        }
-        
-        nav ul li {
-            margin-left: 15px;
-        }
-        
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #f7c08a;
-        }
-        /* محتوای صفحه */
-        
-        .container {
-            max-width: 800px;
-            margin: 100px auto 50px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #ff5733;
-            margin-bottom: 20px;
-        }
-        
-        h2 {
-            font-size: 1.8rem;
-            color: #444;
-            margin-top: 20px;
-        }
-        
-        p {
-            text-align: justify;
-            font-size: 1.1rem;
-            margin: 15px 0;
-        }
-        
-        .message {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f7f7f7;
-            border-left: 5px solid #ff5733;
-            font-style: italic;
-            font-size: 1.2rem;
-        }
-        
-        .videos {
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        .videos iframe {
-            border-radius: 10px;
-            width: 100%;
-            max-width: 600px;
-            height: 340px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 30px;
-        }
-        /* تنظیمات برای صفحه‌نمایش‌های موبایل */
-        
-        @media (max-width: 768px) {
-            /* تنظیمات هدر برای صفحه‌های کوچکتر */
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .logo {
-                font-size: 2rem;
-                margin-bottom: 10px;
-            }
-            nav ul {
-                display: block;
-                margin: 0;
-            }
-            nav ul li {
-                margin-bottom: 10px;
-            }
-            nav ul li a {
-                font-size: 1.2rem;
-            }
-            /* تنظیمات محتوای صفحه برای صفحه‌نمایش کوچک */
-            .container {
-                margin: 20px;
-                padding: 15px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            h2 {
-                font-size: 1.5rem;
-            }
-            p {
-                font-size: 1rem;
-            }
-            /* تنظیمات ویدئو برای صفحه‌های کوچک */
-            .videos iframe {
-                width: 100%;
-                height: 250px;
-            }
-            /* تنظیمات فوتر برای صفحه‌های کوچکتر */
-            footer {
-                padding: 10px 0;
-            }
-        }
-    </style>
-    <style>
-        /* Global Styles */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background: #f4f4f4;
-            color: #333;
-            scroll-behavior: smooth;
-            transition: background-color 0.5s, color 0.5s;
-        }
-        
-        body.night-mode {
-            background-color: #333;
-            color: #f4f4f4;
-        }
-        
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        /* Header */
-        
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        
-        nav {
-            flex: 1;
-            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
             justify-content: center;
         }
         
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-        
-        nav ul li {
-            margin-right: 20px;
-        }
-        
-        nav ul li a {
-            color: #fff;
+        .nav-link {
+            color: var(--text-light);
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #f7c08a;
-        }
-        /* Improved Day-Night Toggle */
-        
-        .toggle {
-            position: relative;
-            width: 50px;
-            height: 25px;
-            background-color: #ddd;
+            font-size: 1.05rem;
+            padding: 10px 18px;
             border-radius: 25px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 192, 138, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(247, 192, 138, 0.4);
+        }
+        
+        .nav-link.active {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theme-toggle {
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 2px;
-            transition: background-color 0.5s;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
         }
         
-        .toggle .circle {
-            width: 21px;
-            height: 21px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.5s;
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: rotate(30deg);
+            border-color: var(--accent);
         }
         
-        body.night-mode {
-            background-color: #333;
-            color: #dcdcdc;
-            /* تغییر رنگ متن به خاکی روشن برای خوانایی بیشتر */
-        }
-        
-        body.night-mode header,
-        body.night-mode footer {
-            background-color: #222;
-            /* رنگ پس‌زمینه هدر و فوتر کمی تیره‌تر */
-        }
-        
-        body.night-mode .toggle {
-            background-color: #f7c08a;
-        }
-        
-        body.night-mode .toggle .circle {
-            transform: translateX(25px);
-        }
-        /* تنظیم رنگ‌های دیگر برای خوانایی بهتر در حالت شب */
-        
-        body.night-mode .post {
-            background: #555;
-            /* رنگ پس‌زمینه پست‌ها در حالت شب */
-            color: #e0e0e0;
-            /* رنگ متن پست‌ها در حالت شب */
-        }
-        
-        body.night-mode .message {
-            background: #444;
-            color: #e0e0e0;
-            /* رنگ متن پیام در حالت شب */
-        }
-        
-        body.night-mode nav ul li a {
-            color: #f7c08a;
-            /* رنگ لینک‌ها در حالت شب */
-        }
-        
-        body.night-mode .read-more {
-            background: #f7c08a;
-            color: #333;
-        }
-        
-        body.night-mode .read-more:hover {
-            background: #333;
-            color: #f7c08a;
-        }
-        /* Footer */
-        
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-        /* Responsive Styles */
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                font-size: 14px;
-            }
-            header {
-                flex-direction: column;
-                padding: 10px;
-                text-align: center;
-            }
-        }
-        
-         ::-webkit-scrollbar {
-            width: 14px;
-            /* عرض نوار اسکرول */
-            height: 14px;
-            /* ارتفاع نوار اسکرول افقی */
-        }
-        
-         ::-webkit-scrollbar-track {
-            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
-            /* گرادینت برای پس‌زمینه نوار اسکرول */
-            border-radius: 10px;
-            /* گوشه‌های گرد */
-            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
-            /* سایه داخلی برای عمق */
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff4b5c, #e63946, #ff4b5c);
-            /* گرادینت چندرنگ برای نوار اسکرول */
-            border-radius: 10px;
-            /* گوشه‌های گرد */
-            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
-            /* سایه داخلی برای نمای بهتر */
-            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            /* انیمیشن برای تغییرات رنگ و سایه */
-        }
-        
-         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #e63946, #ff4b5c);
-            /* تغییر رنگ در حالت Hover */
-            box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.4);
-            /* تغییر سایه در حالت Hover */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
             cursor: pointer;
-            /* نشانگر دست در حالت Hover */
+            padding: 5px;
+        }
+        /* ===== STORY CONTENT ===== */
+        
+        .story-section {
+            padding: 80px 0;
+            background: var(--secondary-dark);
+            position: relative;
+            margin-bottom: 80px;
         }
         
-         ::-webkit-scrollbar-thumb:active {
-            background: linear-gradient(45deg, #c52834, #ff4b5c);
-            /* تغییر رنگ در حالت Active */
-            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.6);
-            /* سایه تیره‌تر در حالت Active */
+        .story-content {
+            background: var(--card-dark);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border-dark);
+            position: relative;
+            overflow: hidden;
         }
         
-         ::-webkit-scrollbar-corner {
-            background: #ff4b5c;
-            /* رنگ گوشه اسکرول */
+        .story-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), #ff9a3c);
         }
-        /* Custom Scrollbar for Firefox */
         
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #ff4b5c #f2f2f2;
-            /* رنگ نوار اسکرول و پس‌زمینه برای فایرفاکس */
+        .story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--accent);
+            text-align: center;
+            line-height: 1.2;
+            position: relative;
+            padding-bottom: 20px;
         }
-        /* Scrollbar Animation */
         
-        @keyframes scroll-glow {
-            0% {
-                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+        .story-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        .story-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .story-text {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+        
+        .story-text:first-letter {
+            font-size: 3rem;
+            color: var(--accent);
+            float: left;
+            margin-right: 10px;
+            font-weight: bold;
+            line-height: 1;
+            margin-top: 8px;
+        }
+        
+        .story-message {
+            background: rgba(247, 192, 138, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-message::before {
+            content: '💬';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            opacity: 0.2;
+        }
+        
+        .story-message p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.6;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .language-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .language-block {
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid var(--border-dark);
+        }
+        
+        .language-block h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+        /* ===== VIDEO SECTION ===== */
+        
+        .video-section {
+            padding: 80px 0;
+            background: var(--primary-dark);
+            margin-bottom: 80px;
+        }
+        
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-dark);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border-dark);
+        }
+        
+        .video-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            background: #000;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* ===== FOOTER ===== */
+        
+        .main-footer {
+            background: var(--card-dark);
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--border-dark);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h4 {
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .footer-text {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-dark);
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-dark);
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        /* ===== SCROLL TO TOP ===== */
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
+            font-size: 1.2rem;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(247, 192, 138, 0.4);
+        }
+        /* ===== RESPONSIVE DESIGN ===== */
+        
+        @media (max-width: 992px) {
+            .story-title {
+                font-size: 2.8rem;
             }
-            50% {
-                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+            .language-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
-            100% {
-                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+            .mobile-menu-btn {
+                display: block;
             }
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            animation: scroll-glow 1.5s ease-in-out infinite;
-            /* افکت انیمیشن برای نوار اسکرول */
-        }
-    </style>
-    <style>
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 10px;
-                text-align: center;
-                height: auto;
-                /* ارتفاع متغیر برای هدر */
+            .main-nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(20, 20, 20, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s;
+                z-index: 999;
+                border-bottom: 1px solid var(--border-dark);
             }
-            nav ul {
+            .main-nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .nav-links {
                 flex-direction: column;
                 align-items: center;
             }
-            nav ul li {
-                margin-bottom: 10px;
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                padding: 15px 0;
             }
-            nav ul li a {
-                font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            .header-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .logo {
+                font-size: 1.8rem;
+            }
+            .logo i {
+                font-size: 2rem;
+            }
+            .story-title {
+                font-size: 2.2rem;
+            }
+            .story-subtitle {
+                font-size: 1.4rem;
+            }
+            .story-content {
+                padding: 30px 20px;
+            }
+            .story-message {
+                padding: 20px;
+            }
+            .video-container {
+                padding: 25px 20px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding-top: 70px;
             }
             .container {
-                margin-top: 120px;
-                /* فاصله برای محتوای اصلی فقط در دستگاه‌های کوچک */
+                padding: 0 10px;
             }
-        }
-    </style>
-    <style>
-        /* ایجاد افکت برف */
-        
-        .snowflake {
-            position: absolute;
-            color: #fff;
-            font-size: 1.5rem;
-            pointer-events: none;
-            user-select: none;
-            animation: snow 10s linear infinite;
-        }
-        /* انیمیشن برف */
-        
-        @keyframes snow {
-            0% {
-                transform: translateY(-500vh) rotate(0deg);
-                /* شروع از بالای صفحه */
+            .story-title {
+                font-size: 1.8rem;
             }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                /* حرکت به پایین صفحه */
+            .story-subtitle {
+                font-size: 1.2rem;
             }
-        }
-        /* دکمه کریسمس */
-        
-        .christmas-text {
-            color: #ff4b5c;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
-        }
-        
-        .christmas-text:hover {
-            color: #fff;
-            text-shadow: 0 0 20px #ff4b5c, 0 0 30px #ff4b5c, 0 0 40px #ff4b5c;
-        }
-        /* به‌روزرسانی نمایش برف و نوشته‌ها در موبایل */
-        
-        @media (max-width: 768px) {
-            .snowflake {
+            .story-text {
                 font-size: 1rem;
             }
-        }
-    </style>
-
-    <style>
-        /* برای موبایل: */
-        /* برای موبایل: */
-        
-        @media (max-width: 768px) {
-            .snowflake {
-                font-size: 1.2em;
-                /* اندازه کوچک‌تر برای موبایل */
-                top: -50px;
-                /* موقعیت شروع برف‌ها بالاتر می‌شود */
-                position: fixed;
-                /* برف‌ها ثابت در صفحه باقی می‌مانند */
-                z-index: 9999;
-                /* قرار دادن برف‌ها در بالاترین لایه */
-                pointer-events: none;
-                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+            .video-container {
+                padding: 20px 15px;
+            }
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
             }
         }
-        /* برای دستگاه‌های خیلی کوچک */
+        /* ===== UTILITY CLASSES ===== */
         
-        @media (max-width: 480px) {
-            .snowflake {
-                font-size: 1em;
-                /* اندازه خیلی کوچک‌تر */
-                top: -70px;
-                /* موقعیت شروع برف‌ها حتی بالاتر */
-                position: fixed;
-                /* برف‌ها ثابت در صفحه باقی می‌مانند */
-                z-index: 9999;
-                /* قرار دادن برف‌ها در بالاترین لایه */
-                pointer-events: none;
-                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+        
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+        
+        .mt-30 {
+            margin-top: 30px;
+        }
+        
+        .mt-40 {
+            margin-top: 40px;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
     </style>
@@ -524,111 +728,340 @@
 </head>
 
 <body>
-    <!-- هدر -->
-    <header>
-        <div class="logo">My Blog</div>
-        <nav>
-            <ul>
-                <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank">Spotify</a></li>
-                <li><a href="https://t.me/Dark_Night_123" target="_blank">Telegram</a></li>
-                <li><a href="index.html" target="_blank">home</a></li>
-                <li><a href="gallery.html" target="_blank">Gallery</a></li>
-            </ul>
-            <div class="toggle" id="toggle">
-                <div class="circle"></div>
+    <!-- Leaves Animation -->
+    <div class="leaf-container" id="leafContainer"></div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" title="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-blog"></i>
+                <span>My Blog</span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#blog" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="index.html#media" class="nav-link"><i class="fas fa-play-circle"></i> Media</a></li>
+                    <li><a href="index.html#music" class="nav-link"><i class="fas fa-music"></i> Music</a></li>
+                    <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank" class="nav-link"><i class="fab fa-spotify"></i> Spotify</a></li>
+                    <li><a href="https://t.me/Dark_Night_123" target="_blank" class="nav-link"><i class="fab fa-telegram"></i> Telegram</a></li>
+                    <li><a href="gallery.html" target="_blank" class="nav-link"><i class="fas fa-images"></i> Gallery</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-            </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- محتوا -->
-    <div class="container">
-        <h1>The Christmas Story</h1>
-        <h2>Story: The Christmas Story</h2>
-        <p>
-            Merry Christmas! 🎄 On a snowy Christmas Eve, a little boy was waiting eagerly for Santa. As midnight approached, he heard a soft sound coming from the chimney. He rushed to the fireplace and saw a small gift waiting for him. It wasn't the biggest present,
-            but it was the most special. Santa had left him a note that said, "The best gift is love and kindness. Share it with everyone you meet!" The boy smiled and decided to spread joy and kindness all around, reminding everyone that Christmas is
-            about love, not just gifts.
-        </p>
+    <!-- Story Content -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content fade-in">
+                <h1 class="story-title">The Christmas Story</h1>
+                <h2 class="story-subtitle">A Tale of Love and Kindness</h2>
 
-        <h2>داستان کریسمس:</h2>
-        <p>
-            کریسمس مبارک! 🎄 در شب کریسمس برفی، پسری کوچک با اشتیاق زیاد منتظر سنتا بود. نزدیک به نیمه‌شب، صدای نرمی از دودکش شنید. به سرعت به طرف شومینه دوید و هدیه‌ای کوچک را دید که برای او گذاشته شده بود. آن هدیه بزرگترین هدیه نبود، اما خاص‌ترین بود. سنتا برای
-            او یادداشتی گذاشته بود که نوشته بود: "بهترین هدیه، عشق و مهربانی است. آن را با همه‌ای که ملاقات می‌کنی به اشتراک بگذار!" پسر لبخند زد و تصمیم گرفت شادی و مهربانی را در اطراف خود پخش کند، یادآوری اینکه کریسمس در مورد عشق است، نه فقط هدایا.
-        </p>
+                <div class="language-section">
+                    <div class="language-block">
+                        <h3>English Version</h3>
+                        <div class="story-text">
+                            <p>Merry Christmas! 🎄 On a snowy Christmas Eve, a little boy was waiting eagerly for Santa. As midnight approached, he heard a soft sound coming from the chimney. He rushed to the fireplace and saw a small gift waiting for him.</p>
+                            <p>It wasn't the biggest present, but it was the most special. Santa had left him a note that said, "The best gift is love and kindness. Share it with everyone you meet!"</p>
+                            <p>The boy smiled and decided to spread joy and kindness all around, reminding everyone that Christmas is about love, not just gifts.</p>
+                        </div>
+                    </div>
 
-        <div class="message">
-            Message: Christmas is not just about the gifts we receive, but about the love and joy we share. <br> پیام: کریسمس فقط در مورد هدیه‌هایی که دریافت می‌کنیم نیست، بلکه در مورد عشق و شادی است که به اشتراک می‌گذاریم.
+                    <div class="language-block">
+                        <h3>نسخه فارسی</h3>
+                        <div class="story-text">
+                            <p>کریسمس مبارک! 🎄 در شب کریسمس برفی، پسری کوچک با اشتیاق زیاد منتظر سنتا بود. نزدیک به نیمه‌شب، صدای نرمی از دودکش شنید. به سرعت به طرف شومینه دوید و هدیه‌ای کوچک را دید که برای او گذاشته شده بود.</p>
+                            <p>آن هدیه بزرگترین هدیه نبود، اما خاص‌ترین بود. سنتا برای او یادداشتی گذاشته بود که نوشته بود: "بهترین هدیه، عشق و مهربانی است. آن را با همه‌ای که ملاقات می‌کنی به اشتراک بگذار!"</p>
+                            <p>پسر لبخند زد و تصمیم گرفت شادی و مهربانی را در اطراف خود پخش کند، یادآوری اینکه کریسمس در مورد عشق است، نه فقط هدایا.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-message">
+                    <p><strong>Message:</strong> Christmas is not just about the gifts we receive, but about the love and joy we share.</p>
+                    <p class="mt-30"><strong>پیام داستان:</strong> کریسمس فقط در مورد هدیه‌هایی که دریافت می‌کنیم نیست، بلکه در مورد عشق و شادی است که به اشتراک می‌گذاریم.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="video-container fade-in">
+                <h2 class="video-title">Related Video</h2>
+                <div class="video-wrapper">
 
-    <!-- ویدئو -->
-    <div class="videos">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/TdHOo8m7O3Q?si=yaWXQGHtvVregG2n" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-    <div class="videos">
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About This Story</h4>
+                    <p class="footer-text">
+                        This story is part of our collection of inspirational tales. Each story carries a message of hope, resilience, and transformation.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://t.me/Dark_Night_123" target="_blank" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
 
-    <!-- فوتر -->
-    <footer>
-        <p>Designed and developed by AMIR KING - 2024</p>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home Page</a></li>
+                        <li><a href="index.html#blog"><i class="fas fa-chevron-right"></i> All Stories</a></li>
+                        <li><a href="index.html#music"><i class="fas fa-chevron-right"></i> Music Player</a></li>
+                        <li><a href="gallery.html" target="_blank"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+                        <li><a href="index.html#comments"><i class="fas fa-chevron-right"></i> Leave Comment</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Related Stories</h4>
+                    <ul class="footer-links">
+                        <li><a href="more 2.html"><i class="fas fa-book-open"></i> A Christmas Story</a></li>
+                        <li><a href="more3.html"><i class="fas fa-laptop-code"></i> Dark Web Design</a></li>
+                        <li><a href="more4.html"><i class="fas fa-lightbulb"></i> Creativity in Darkness</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 My Blog. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by Amir FN</p>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Smooth scroll for all links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Day-Night Toggle Functionality
-        const toggle = document.getElementById('toggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('night-mode');
-        });
-
-        // Example of animation on scroll (if required)
-        window.addEventListener('scroll', function() {
-            const bioSection = document.querySelector('.bio-section');
-            if (!bioSection) return; // Skip if .bio-section doesn't exist
-
-            const sectionPos = bioSection.getBoundingClientRect().top;
-            const screenPos = window.innerHeight / 1.3;
-
-            if (sectionPos < screenPos) {
-                bioSection.classList.add('appear');
+        // ===== LEAVES ANIMATION =====
+        class LeavesAnimation {
+            constructor() {
+                this.container = document.getElementById('leafContainer');
+                this.leaves = ['🍁', '🍂'];
+                this.maxLeaves = 25;
+                this.animationDuration = 20000;
+                this.init();
             }
-        });
-    </script>
-    <script>
-        // ایجاد برف در صفحه
-        function createSnowflakes() {
-            const snowflakes = ['❄', '❆', '✦', '✸', '❉'];
-            const numberOfSnowflakes = 70;
-            const snowContainer = document.body;
 
-            for (let i = 0; i < numberOfSnowflakes; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerText = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                snowContainer.appendChild(snowflake);
+            init() {
+                this.createLeaves();
+                setInterval(() => this.refreshLeaves(), this.animationDuration);
+            }
+
+            createLeaves() {
+                this.container.innerHTML = '';
+                for (let i = 0; i < this.maxLeaves; i++) {
+                    setTimeout(() => this.createLeaf(), Math.random() * 3000);
+                }
+            }
+
+            createLeaf() {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                const leafType = this.leaves[Math.floor(Math.random() * this.leaves.length)];
+                leaf.textContent = leafType;
+
+                const startX = Math.random() * 100;
+                const endX = startX + (Math.random() * 30 - 15);
+                const size = Math.random() * 20 + 20;
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 5;
+                const rotation = Math.random() * 720;
+
+                leaf.style.left = `${startX}vw`;
+                leaf.style.fontSize = `${size}px`;
+                leaf.style.animationDuration = `${duration}s`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.opacity = Math.random() * 0.5 + 0.3;
+                leaf.style.filter = `hue-rotate(${Math.random() * 60}deg)`;
+
+                leaf.animate([{
+                    transform: `translate(0, 0) rotate(0deg)`,
+                    opacity: 0.8
+                }, {
+                    transform: `translate(${endX - startX}vw, 100vh) rotate(${rotation}deg)`,
+                    opacity: 0
+                }], {
+                    duration: duration * 1000,
+                    delay: delay * 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    fill: 'forwards'
+                });
+
+                this.container.appendChild(leaf);
+                setTimeout(() => leaf.remove(), (duration + delay) * 1000);
+            }
+
+            refreshLeaves() {
+                this.createLeaves();
             }
         }
 
-        // فعال‌سازی برف
-        createSnowflakes();
-    </script>
+        // ===== MAIN APPLICATION =====
+        class StoryPage {
+            constructor() {
+                this.leavesAnimation = new LeavesAnimation();
+                this.init();
+            }
 
+            init() {
+                this.setupEventListeners();
+                this.setupScrollEffects();
+                this.loadTheme();
+            }
+
+            setupEventListeners() {
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
+
+                // Mobile menu
+                document.getElementById('mobileMenuBtn').addEventListener('click', () => this.toggleMobileMenu());
+
+                // Scroll to top
+                document.getElementById('scrollTop').addEventListener('click', () => this.scrollToTop());
+
+                // Smooth scroll for navigation links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = anchor.getAttribute('href');
+                        if (targetId === '#') return;
+
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            document.getElementById('mainNav').classList.remove('active');
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const nav = document.getElementById('mainNav');
+                    const menuBtn = document.getElementById('mobileMenuBtn');
+
+                    if (nav.classList.contains('active') &&
+                        !nav.contains(e.target) &&
+                        !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                    }
+                });
+            }
+
+            setupScrollEffects() {
+                let lastScrollTop = 0;
+                const header = document.getElementById('mainHeader');
+                const scrollTopBtn = document.getElementById('scrollTop');
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Header scroll effect
+                    if (scrollTop > 100) {
+                        header.classList.add('header-scrolled');
+                    } else {
+                        header.classList.remove('header-scrolled');
+                    }
+
+                    // Scroll to top button
+                    if (scrollTop > 300) {
+                        scrollTopBtn.classList.add('visible');
+                    } else {
+                        scrollTopBtn.classList.remove('visible');
+                    }
+
+                    lastScrollTop = scrollTop;
+                });
+            }
+
+            loadTheme() {
+                const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('night-mode');
+                    document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            }
+
+            toggleTheme() {
+                const body = document.body;
+                const themeToggle = document.getElementById('themeToggle');
+
+                body.classList.toggle('night-mode');
+
+                if (body.classList.contains('night-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('blog_theme', 'dark');
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('blog_theme', 'light');
+                }
+            }
+
+            toggleMobileMenu() {
+                const nav = document.getElementById('mainNav');
+                nav.classList.toggle('active');
+                const menuIcon = document.querySelector('#mobileMenuBtn i');
+                menuIcon.className = nav.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+            }
+
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ===== INITIALIZE APPLICATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            window.storyPage = new StoryPage();
+
+            // Initial animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach((el, index) => {
+                    el.style.animationDelay = `${index * 0.2}s`;
+                });
+            }, 500);
+        });
+    </script>
 </body>
 
 </html>

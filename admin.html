@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - My Blog</title>
+    <link rel="icon" href="FreeLogoDesign _ LogoMaker - Google Chrome 1_1_2025 12_58_03 PM.png" type="image/png" sizes="128x128">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #141414;
+            --accent: #f7c08a;
+            --text-light: #f0f0f0;
+            --danger: #f44336;
+            --success: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at 20% 30%, rgba(247, 192, 138, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(247, 192, 138, 0.03) 0%, transparent 50%);
+        }
+        
+        .admin-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+        
+        .admin-box {
+            background: var(--secondary-dark);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(247, 192, 138, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(247, 192, 138, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .admin-logo {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .admin-logo i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .admin-logo h1 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .admin-logo p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-weight: 500;
+            text-align: left;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(247, 192, 138, 0.1);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #e0b07a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(247, 192, 138, 0.3);
+        }
+        
+        .error-message {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .success-message {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .back-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 576px) {
+            .admin-container {
+                padding: 15px;
+            }
+            .admin-box {
+                padding: 30px 20px;
+            }
+            .admin-logo h1 {
+                font-size: 1.7rem;
+            }
+        }
+        /* Loading animation */
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-dark);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Password visibility toggle */
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <div class="admin-box">
+            <div class="admin-logo">
+                <i class="fas fa-user-shield"></i>
+                <h1>Admin Login</h1>
+                <p>Secure Access Required</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Invalid username or password</span>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                <span>Login successful! Redirecting...</span>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-input" placeholder="Enter admin username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" class="form-input" placeholder="Enter admin password" required>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login to Admin Panel</span>
+                </button>
+            </form>
+
+            <div class="back-link">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i> Back to Blog
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = submitBtn.querySelector('span');
+            const submitIcon = submitBtn.querySelector('i');
+
+            // Hide messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Valid credentials (hardcoded for now)
+            const validUsername = 'Ab123mir';
+            const validPassword = '123amir4848';
+
+            // Show loading
+            submitBtn.disabled = true;
+            submitIcon.className = 'loading';
+            submitText.textContent = 'Authenticating...';
+
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            if (username === validUsername && password === validPassword) {
+                // Show success message
+                successMessage.style.display = 'flex';
+                successMessage.style.alignItems = 'center';
+                successMessage.style.gap = '10px';
+
+                // Create session token (simple hash)
+                const token = btoa(`${username}:${password}:${Date.now()}`);
+
+                // Store in localStorage (optional)
+                try {
+                    localStorage.setItem('admin_token', token);
+                    localStorage.setItem('admin_user', username);
+                } catch (e) {
+                    console.log('LocalStorage not available, using URL parameters');
+                }
+
+                // Redirect with token in URL
+                setTimeout(() => {
+                    window.location.href = `admin-panel.html?token=${encodeURIComponent(token)}&user=${encodeURIComponent(username)}`;
+                }, 1500);
+
+            } else {
+                // Show error message
+                errorMessage.style.display = 'flex';
+                errorMessage.style.alignItems = 'center';
+                errorMessage.style.gap = '10px';
+
+                // Reset button
+                submitBtn.disabled = false;
+                submitIcon.className = 'fas fa-sign-in-alt';
+                submitText.textContent = 'Login to Admin Panel';
+
+                // Shake animation
+                this.classList.add('shake');
+                setTimeout(() => {
+                    this.classList.remove('shake');
+                }, 500);
+
+                // Clear password field
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        });
+
+        // Check if already logged in
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+
+            if (token) {
+                // Already have token, redirect to admin panel
+                window.location.href = `admin-panel.html?token=${encodeURIComponent(token)}`;
+            }
+
+            // Auto-focus username field
+            document.getElementById('username').focus();
+        });
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            .shake {
+                animation: shake 0.5s;
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

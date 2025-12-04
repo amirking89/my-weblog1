@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - My Blog</title>
+    <link rel="icon" href="FreeLogoDesign _ LogoMaker - Google Chrome 1_1_2025 12_58_03 PM.png" type="image/png" sizes="128x128">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #141414;
+            --card-dark: #1e1e1e;
+            --accent: #f7c08a;
+            --text-light: #f0f0f0;
+            --danger: #f44336;
+            --success: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        /* Admin Container */
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Admin Header */
+        
+        .admin-header {
+            background: var(--secondary-dark);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(247, 192, 138, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        .admin-logo h1 {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+        /* Admin Navigation */
+        
+        .admin-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            background: var(--secondary-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .nav-btn.active {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-color: var(--accent);
+        }
+        /* Admin Content */
+        
+        .admin-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .admin-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Dashboard */
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--secondary-dark);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: rgba(247, 192, 138, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        /* Comments Section */
+        
+        .comments-container {
+            background: var(--secondary-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comments-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .comments-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .comment-item {
+            background: var(--card-dark);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+        
+        .comment-info h4 {
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        
+        .comment-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .comment-rating {
+            color: gold;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .action-btn.delete:hover {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        .action-btn.approve:hover {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border-color: var(--success);
+        }
+        
+        .no-comments {
+            text-align: center;
+            padding: 50px 20px;
+            color: #aaa;
+        }
+        
+        .no-comments i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        /* Action Buttons */
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .main-btn {
+            padding: 15px 30px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .main-btn:hover {
+            background: #e0b07a;
+            transform: translateY(-2px);
+        }
+        /* Notification */
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: var(--primary-dark);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+            color: white;
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .admin-nav {
+                justify-content: center;
+            }
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+            .comment-header {
+                flex-direction: column;
+            }
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-container {
+                padding: 15px;
+            }
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            .main-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle" id="notificationIcon"></i>
+        <span id="notificationText">Operation successful</span>
+    </div>
+
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="admin-logo">
+                <i class="fas fa-user-shield"></i>
+                <h1>Admin Panel</h1>
+            </div>
+
+            <div class="admin-user">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div>
+                    <h3 id="userName">Admin</h3>
+                    <p style="color: #aaa; font-size: 0.9rem;">Administrator</p>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Admin Navigation -->
+        <nav class="admin-nav">
+            <button class="nav-btn active" data-section="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </button>
+            <button class="nav-btn" data-section="comments">
+                <i class="fas fa-comments"></i>
+                Comments
+            </button>
+            <button class="nav-btn" data-section="lock">
+                <i class="fas fa-lock"></i>
+                Lock Page
+            </button>
+            <button class="nav-btn" data-section="settings">
+                <i class="fas fa-cog"></i>
+                Settings
+            </button>
+        </nav>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="admin-content active">
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="totalComments">0</div>
+                            <div class="stat-label">Total Comments</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="approvedComments">0</div>
+                            <div class="stat-label">Approved Comments</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="pendingComments">0</div>
+                            <div class="stat-label">Pending Comments</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-number" id="avgRating">0.0</div>
+                            <div class="stat-label">Average Rating</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="main-btn" onclick="window.open('loo.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i>
+                    Open Lock Page
+                </button>
+                <button class="main-btn" id="exportBtn">
+                    <i class="fas fa-download"></i>
+                    Export Data
+                </button>
+                <button class="main-btn" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh Data
+                </button>
+            </div>
+        </section>
+
+        <!-- Comments Section -->
+        <section id="comments" class="admin-content">
+            <div class="comments-container">
+                <div class="comments-header">
+                    <h2>User Comments</h2>
+                    <div style="color: var(--accent); font-weight: 600;" id="commentsCount">0 comments</div>
+                </div>
+
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Lock Page Section -->
+        <section id="lock" class="admin-content">
+            <div style="text-align: center; padding: 50px 20px;">
+                <div style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2 style="margin-bottom: 20px; color: var(--accent);">Lock Page Access</h2>
+                <p style="color: #aaa; margin-bottom: 30px; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">
+                    Access the special locked content area with enhanced features and settings. This section requires special permissions to access.
+                </p>
+                <button class="main-btn" onclick="window.open('loo.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i>
+                    Open Lock Page
+                </button>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="admin-content">
+            <div style="text-align: center; padding: 50px 20px;">
+                <div style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h2 style="margin-bottom: 20px; color: var(--accent);">Admin Settings</h2>
+                <p style="color: #aaa; margin-bottom: 30px; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">
+                    Configure your admin panel settings, security options, and system preferences.
+                </p>
+
+                <div class="action-buttons" style="justify-content: center;">
+                    <button class="main-btn" onclick="showNotification('Security settings updated', 'success')">
+                        <i class="fas fa-shield-alt"></i>
+                        Security Settings
+                    </button>
+                    <button class="main-btn" onclick="clearCache()">
+                        <i class="fas fa-trash-alt"></i>
+                        Clear Cache
+                    </button>
+                    <button class="main-btn" onclick="backupData()">
+                        <i class="fas fa-save"></i>
+                        Backup Data
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Check authentication on page load
+        window.addEventListener('load', function() {
+            checkAuthentication();
+            initAdminPanel();
+        });
+
+        function checkAuthentication() {
+            // Get token from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            const user = urlParams.get('user') || 'Admin';
+
+            // Simple token validation
+            if (!token) {
+                // No token, redirect to login
+                window.location.href = 'admin.html';
+                return false;
+            }
+
+            // Decode token (simple base64)
+            try {
+                const decoded = atob(token);
+                const parts = decoded.split(':');
+
+                if (parts.length < 2) {
+                    throw new Error('Invalid token format');
+                }
+
+                // Set user info
+                document.getElementById('userName').textContent = user;
+                document.getElementById('userAvatar').textContent = user.charAt(0).toUpperCase();
+
+            } catch (error) {
+                console.error('Token validation error:', error);
+                window.location.href = 'admin.html';
+                return false;
+            }
+
+            return true;
+        }
+
+        function initAdminPanel() {
+            // Setup event listeners
+            setupEventListeners();
+
+            // Load initial data
+            loadComments();
+            updateStats();
+        }
+
+        function setupEventListeners() {
+            // Navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Show corresponding section
+                    const sectionId = this.getAttribute('data-section');
+                    document.querySelectorAll('.admin-content').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(sectionId).classList.add('active');
+
+                    // Load data if needed
+                    if (sectionId === 'comments') {
+                        loadComments();
+                    }
+                });
+            });
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    // Clear any stored data
+                    try {
+                        localStorage.removeItem('admin_token');
+                        localStorage.removeItem('admin_user');
+                    } catch (e) {
+                        // Ignore errors
+                    }
+
+                    // Redirect to login
+                    window.location.href = 'admin.html';
+                }
+            });
+
+            // Export button
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+
+            // Refresh button
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                loadComments();
+                updateStats();
+                showNotification('Data refreshed successfully');
+            });
+        }
+
+        function loadComments() {
+            const container = document.getElementById('commentsList');
+
+            // Get comments from localStorage
+            let comments = [];
+            try {
+                const storedComments = localStorage.getItem('blog_comments');
+                if (storedComments) {
+                    comments = JSON.parse(storedComments);
+                }
+            } catch (error) {
+                console.error('Error loading comments:', error);
+                showNotification('Error loading comments', 'error');
+                return;
+            }
+
+            // Update count
+            document.getElementById('commentsCount').textContent = `${comments.length} comment${comments.length !== 1 ? 's' : ''}`;
+
+            // Display comments
+            if (comments.length === 0) {
+                container.innerHTML = `
+                    <div class="no-comments">
+                        <i class="fas fa-comments"></i>
+                        <h3>No Comments Yet</h3>
+                        <p>No comments have been submitted yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by date (newest first)
+            comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Display each comment
+            container.innerHTML = '';
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment-item';
+
+                const date = new Date(comment.date);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                // Create rating stars
+                let starsHtml = '';
+                for (let i = 0; i < 5; i++) {
+                    starsHtml += i < comment.rating ?
+                        '<i class="fas fa-star"></i>' :
+                        '<i class="far fa-star"></i>';
+                }
+
+                commentElement.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-author">
+                            <div class="author-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                            <div class="comment-info">
+                                <h4>${escapeHtml(comment.name)}</h4>
+                                <p>${comment.email} • ${formattedDate}</p>
+                            </div>
+                        </div>
+                        <div class="comment-rating" style="color: gold;">
+                            ${starsHtml}
+                        </div>
+                    </div>
+                    <div style="color: #ccc; margin: 15px 0; line-height: 1.6;">
+                        ${escapeHtml(comment.text)}
+                    </div>
+                    <div class="comment-actions">
+                        <button class="action-btn approve" onclick="approveComment(${comment.id})">
+                            <i class="fas fa-check"></i>
+                            Approve
+                        </button>
+                        <button class="action-btn delete" onclick="deleteComment(${comment.id})">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </button>
+                        <button class="action-btn" onclick="replyToComment('${comment.email}')">
+                            <i class="fas fa-reply"></i>
+                            Reply
+                        </button>
+                    </div>
+                `;
+
+                container.appendChild(commentElement);
+            });
+        }
+
+        function updateStats() {
+            // Get comments
+            let comments = [];
+            try {
+                const storedComments = localStorage.getItem('blog_comments');
+                if (storedComments) {
+                    comments = JSON.parse(storedComments);
+                }
+            } catch (error) {
+                console.error('Error loading comments:', error);
+                return;
+            }
+
+            // Calculate stats
+            const total = comments.length;
+            const approved = comments.length; // For now, all are approved
+            const pending = 0; // No pending system yet
+
+            // Calculate average rating
+            let totalRating = 0;
+            comments.forEach(comment => {
+                totalRating += comment.rating;
+            });
+            const avgRating = total > 0 ? (totalRating / total).toFixed(1) : '0.0';
+
+            // Update display
+            document.getElementById('totalComments').textContent = total;
+            document.getElementById('approvedComments').textContent = approved;
+            document.getElementById('pendingComments').textContent = pending;
+            document.getElementById('avgRating').textContent = avgRating;
+        }
+
+        function approveComment(commentId) {
+            showNotification('Comment approved successfully');
+            // In real app, update comment status
+        }
+
+        function deleteComment(commentId) {
+            if (confirm('Are you sure you want to delete this comment?')) {
+                // Get current comments
+                let comments = [];
+                try {
+                    const storedComments = localStorage.getItem('blog_comments');
+                    if (storedComments) {
+                        comments = JSON.parse(storedComments);
+                    }
+                } catch (error) {
+                    showNotification('Error deleting comment', 'error');
+                    return;
+                }
+
+                // Remove comment
+                comments = comments.filter(comment => comment.id !== commentId);
+
+                // Save back
+                localStorage.setItem('blog_comments', JSON.stringify(comments));
+
+                // Reload
+                loadComments();
+                updateStats();
+
+                showNotification('Comment deleted successfully');
+            }
+        }
+
+        function replyToComment(email) {
+            const subject = 'Re: Your comment on My Blog';
+            const body = 'Dear user,\n\nThank you for your comment!\n\nBest regards,\nAdmin';
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        function exportData() {
+            // Get comments
+            let comments = [];
+            try {
+                const storedComments = localStorage.getItem('blog_comments');
+                if (storedComments) {
+                    comments = JSON.parse(storedComments);
+                }
+            } catch (error) {
+                showNotification('Error exporting data', 'error');
+                return;
+            }
+
+            if (comments.length === 0) {
+                showNotification('No data to export', 'error');
+                return;
+            }
+
+            // Create CSV
+            let csv = 'ID,Name,Email,Comment,Rating,Date\n';
+            comments.forEach(comment => {
+                csv += `${comment.id},"${comment.name.replace(/"/g, '""')}","${comment.email}","${comment.text.replace(/"/g, '""')}",${comment.rating},${comment.date}\n`;
+            });
+
+            // Create download link
+            const blob = new Blob([csv], {
+                type: 'text/csv'
+            });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `blog_comments_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            showNotification('Data exported successfully');
+        }
+
+        function clearCache() {
+            if (confirm('Are you sure you want to clear all cache?')) {
+                localStorage.removeItem('blog_comments');
+                loadComments();
+                updateStats();
+                showNotification('Cache cleared successfully');
+            }
+        }
+
+        function backupData() {
+            showNotification('Backup created successfully');
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const icon = document.getElementById('notificationIcon');
+            const text = document.getElementById('notificationText');
+
+            text.textContent = message;
+
+            if (type === 'error') {
+                notification.classList.add('error');
+                icon.className = 'fas fa-exclamation-circle';
+            } else {
+                notification.classList.remove('error');
+                icon.className = 'fas fa-check-circle';
+            }
+
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>

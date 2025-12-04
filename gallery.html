@@ -5,91 +5,412 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gallery</title>
+    <title>Gallery - My Blog</title>
+    <link rel="icon" href="FreeLogoDesign _ LogoMaker - Google Chrome 1_1_2025 12_58_03 PM.png" type="image/png" sizes="128x128">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
+        /* ===== RESET & BASE ===== */
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+         :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #141414;
+            --card-dark: #1e1e1e;
+            --accent: #f7c08a;
+            --accent-hover: #e0b07a;
+            --text-light: #f0f0f0;
+            --text-gray: #b0b0b0;
+            --border-dark: #333;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
             font-family: 'Roboto', sans-serif;
-            background: #f4f4f4;
-            color: #333;
+            background: var(--gradient-dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+            padding-top: 80px;
+            min-height: 100vh;
+            position: relative;
         }
         
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
+        body::before {
+            content: '';
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(247, 192, 138, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(247, 192, 138, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* ===== LEAVES ANIMATION ===== */
+        
+        .leaf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 5px rgba(247, 192, 138, 0.3));
+            user-select: none;
+        }
+        
+        .leaf:nth-child(3n) {
+            color: #ff6b6b;
+            animation-delay: 0s;
+        }
+        
+        .leaf:nth-child(3n+1) {
+            color: #4ecdc4;
+            animation-delay: 1s;
+        }
+        
+        .leaf:nth-child(3n+2) {
+            color: #ffe66d;
+            animation-delay: 2s;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* ===== HEADER ===== */
+        
+        .main-header {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-dark);
+            padding: 15px 0;
+            box-shadow: var(--shadow-dark);
+            transition: all 0.3s;
+        }
+        
+        .header-scrolled {
+            padding: 10px 0;
+            background: rgba(10, 10, 10, 0.98);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #ff9a3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
         }
+        
+        .logo i {
+            font-size: 2.5rem;
+            animation: logoPulse 3s infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.05rem;
+            padding: 10px 18px;
+            border-radius: 25px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 192, 138, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(247, 192, 138, 0.4);
+        }
+        
+        .nav-link.active {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theme-toggle {
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: rotate(30deg);
+            border-color: var(--accent);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+        /* ===== GALLERY SECTION ===== */
         
         .gallery-section {
-            padding: 100px 20px 20px;
+            padding: 80px 0;
+            background: var(--secondary-dark);
+            position: relative;
+            margin-bottom: 80px;
+        }
+        
+        .gallery-header {
             text-align: center;
+            margin-bottom: 60px;
         }
         
-        .gallery-section h2 {
-            font-size: 2rem;
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent);
             margin-bottom: 20px;
-            color: #333;
+            position: relative;
+            display: inline-block;
         }
         
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        .gallery-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
             margin: 0 auto;
         }
         
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
         .gallery-item {
-            position: relative;
+            background: var(--card-dark);
+            border-radius: 15px;
             overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border-dark);
+            transition: all 0.4s;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
         }
         
-        .gallery-item img {
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+        
+        .gallery-img {
             width: 100%;
-            height: auto;
-            transition: transform 0.3s ease;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
         }
         
-        .gallery-item:hover img {
+        .gallery-item:hover .gallery-img {
             transform: scale(1.1);
         }
         
-        .gallery-item a {
+        .gallery-overlay {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            color: #333;
-            text-decoration: none;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+            display: flex;
+            align-items: flex-end;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 20px;
         }
         
-        .gallery-item a:hover {
-            background: #333;
-            color: #fff;
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
         }
+        
+        .gallery-info {
+            color: var(--text-light);
+            width: 100%;
+        }
+        
+        .gallery-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .gallery-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .gallery-btn {
+            padding: 8px 20px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .gallery-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        
+        .gallery-btn.view {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .gallery-btn.view:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        /* ===== LIGHTBOX ===== */
         
         .lightbox {
             display: none;
@@ -98,787 +419,875 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 10px;
-        }
-        
-        .lightbox:target {
-            display: flex;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #fff;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-        
-        .close-btn:hover {
-            background: #333;
-            color: #fff;
-        }
-        
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-        }
-    </style>
-    <style>
-        /* تنظیمات کلی */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-            transition: background-color 0.5s, color 0.5s;
-        }
-        /* هدر */
-        
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin-right: 20px;
-        }
-        
-        nav ul li {
-            margin-left: 15px;
-        }
-        
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #f7c08a;
-        }
-        /* محتوای صفحه */
-        
-        .container {
-            max-width: 800px;
-            margin: 100px auto 50px;
-            background: #fff;
             padding: 20px;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
         
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #ff5733;
-            margin-bottom: 20px;
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: var(--accent);
+            color: var(--primary-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
         }
         
-        h2 {
-            font-size: 1.8rem;
-            color: #444;
-            margin-top: 20px;
+        .lightbox-close:hover {
+            transform: rotate(90deg) scale(1.1);
         }
         
-        p {
-            text-align: justify;
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent);
+            color: var(--primary-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .lightbox-nav:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .lightbox-prev {
+            left: 20px;
+        }
+        
+        .lightbox-next {
+            right: 20px;
+        }
+        
+        .lightbox-info {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            color: var(--text-light);
             font-size: 1.1rem;
-            margin: 15px 0;
+        }
+        /* ===== FOOTER ===== */
+        
+        .main-footer {
+            background: var(--card-dark);
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--border-dark);
+            position: relative;
         }
         
-        .message {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f7f7f7;
-            border-left: 5px solid #ff5733;
-            font-style: italic;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h4 {
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .footer-text {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-dark);
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--primary-dark);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-dark);
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        /* ===== SCROLL TO TOP ===== */
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
             font-size: 1.2rem;
         }
         
-        .videos {
-            text-align: center;
-            margin-top: 40px;
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
         
-        .videos iframe {
-            border-radius: 10px;
-            width: 100%;
-            max-width: 600px;
-            height: 340px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(247, 192, 138, 0.4);
         }
+        /* ===== RESPONSIVE DESIGN ===== */
         
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 30px;
-        }
-        /* تنظیمات برای صفحه‌نمایش‌های موبایل */
-        
-        @media (max-width: 768px) {
-            /* تنظیمات هدر برای صفحه‌های کوچکتر */
-            header {
-                flex-direction: column;
-                text-align: center;
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 25px;
             }
-            .logo {
-                font-size: 2rem;
-                margin-bottom: 10px;
+            .gallery-title {
+                font-size: 2.5rem;
             }
-            nav ul {
+            .mobile-menu-btn {
                 display: block;
-                margin: 0;
             }
-            nav ul li {
-                margin-bottom: 10px;
-            }
-            nav ul li a {
-                font-size: 1.2rem;
-            }
-            /* تنظیمات محتوای صفحه برای صفحه‌نمایش کوچک */
-            .container {
-                margin: 20px;
-                padding: 15px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            h2 {
-                font-size: 1.5rem;
-            }
-            p {
-                font-size: 1rem;
-            }
-            /* تنظیمات ویدئو برای صفحه‌های کوچک */
-            .videos iframe {
+            .main-nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
                 width: 100%;
-                height: 250px;
+                background: rgba(20, 20, 20, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s;
+                z-index: 999;
+                border-bottom: 1px solid var(--border-dark);
             }
-            /* تنظیمات فوتر برای صفحه‌های کوچکتر */
-            footer {
-                padding: 10px 0;
+            .main-nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
-        }
-    </style>
-    <style>
-        /* Global Styles */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background: #f4f4f4;
-            color: #333;
-            scroll-behavior: smooth;
-            transition: background-color 0.5s, color 0.5s;
-        }
-        
-        body.night-mode {
-            background-color: #333;
-            color: #f4f4f4;
-        }
-        
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        /* Header */
-        
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        
-        nav {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-        
-        nav ul li {
-            margin-right: 20px;
-        }
-        
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #f7c08a;
-        }
-        /* Improved Day-Night Toggle */
-        
-        .toggle {
-            position: relative;
-            width: 50px;
-            height: 25px;
-            background-color: #ddd;
-            border-radius: 25px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 2px;
-            transition: background-color 0.5s;
-        }
-        
-        .toggle .circle {
-            width: 21px;
-            height: 21px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.5s;
-        }
-        
-        body.night-mode {
-            background-color: #333;
-            color: #dcdcdc;
-            /* تغییر رنگ متن به خاکی روشن برای خوانایی بیشتر */
-        }
-        
-        body.night-mode header,
-        body.night-mode footer {
-            background-color: #222;
-            /* رنگ پس‌زمینه هدر و فوتر کمی تیره‌تر */
-        }
-        
-        body.night-mode .toggle {
-            background-color: #f7c08a;
-        }
-        
-        body.night-mode .toggle .circle {
-            transform: translateX(25px);
-        }
-        /* تنظیم رنگ‌های دیگر برای خوانایی بهتر در حالت شب */
-        
-        body.night-mode .post {
-            background: #555;
-            /* رنگ پس‌زمینه پست‌ها در حالت شب */
-            color: #e0e0e0;
-            /* رنگ متن پست‌ها در حالت شب */
-        }
-        
-        body.night-mode .message {
-            background: #444;
-            color: #e0e0e0;
-            /* رنگ متن پیام در حالت شب */
-        }
-        
-        body.night-mode nav ul li a {
-            color: #f7c08a;
-            /* رنگ لینک‌ها در حالت شب */
-        }
-        
-        body.night-mode .read-more {
-            background: #f7c08a;
-            color: #333;
-        }
-        
-        body.night-mode .read-more:hover {
-            background: #333;
-            color: #f7c08a;
-        }
-        /* Footer */
-        
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-        /* Responsive Styles */
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                font-size: 14px;
-            }
-            header {
-                flex-direction: column;
-                padding: 10px;
-                text-align: center;
-            }
-        }
-        
-         ::-webkit-scrollbar {
-            width: 14px;
-            /* عرض نوار اسکرول */
-            height: 14px;
-            /* ارتفاع نوار اسکرول افقی */
-        }
-        
-         ::-webkit-scrollbar-track {
-            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
-            /* گرادینت برای پس‌زمینه نوار اسکرول */
-            border-radius: 10px;
-            /* گوشه‌های گرد */
-            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
-            /* سایه داخلی برای عمق */
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff4b5c, #e63946, #ff4b5c);
-            /* گرادینت چندرنگ برای نوار اسکرول */
-            border-radius: 10px;
-            /* گوشه‌های گرد */
-            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
-            /* سایه داخلی برای نمای بهتر */
-            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            /* انیمیشن برای تغییرات رنگ و سایه */
-        }
-        
-         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #e63946, #ff4b5c);
-            /* تغییر رنگ در حالت Hover */
-            box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.4);
-            /* تغییر سایه در حالت Hover */
-            cursor: pointer;
-            /* نشانگر دست در حالت Hover */
-        }
-        
-         ::-webkit-scrollbar-thumb:active {
-            background: linear-gradient(45deg, #c52834, #ff4b5c);
-            /* تغییر رنگ در حالت Active */
-            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.6);
-            /* سایه تیره‌تر در حالت Active */
-        }
-        
-         ::-webkit-scrollbar-corner {
-            background: #ff4b5c;
-            /* رنگ گوشه اسکرول */
-        }
-        /* Custom Scrollbar for Firefox */
-        
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #ff4b5c #f2f2f2;
-            /* رنگ نوار اسکرول و پس‌زمینه برای فایرفاکس */
-        }
-        /* Scrollbar Animation */
-        
-        @keyframes scroll-glow {
-            0% {
-                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
-            }
-            50% {
-                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
-            }
-            100% {
-                box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
-            }
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            animation: scroll-glow 1.5s ease-in-out infinite;
-            /* افکت انیمیشن برای نوار اسکرول */
-        }
-    </style>
-    <style>
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 10px;
-                text-align: center;
-                height: auto;
-                /* ارتفاع متغیر برای هدر */
-            }
-            nav ul {
+            .nav-links {
                 flex-direction: column;
                 align-items: center;
             }
-            nav ul li {
-                margin-bottom: 10px;
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                padding: 15px 0;
             }
-            nav ul li a {
-                font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            .header-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .logo {
+                font-size: 1.8rem;
+            }
+            .logo i {
+                font-size: 2rem;
+            }
+            .gallery-title {
+                font-size: 2.2rem;
+            }
+            .gallery-subtitle {
+                font-size: 1.1rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            .gallery-img {
+                height: 200px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding-top: 70px;
             }
             .container {
-                margin-top: 120px;
-                /* فاصله برای محتوای اصلی فقط در دستگاه‌های کوچک */
+                padding: 0 10px;
             }
-        }
-    </style>
-    <style>
-        /* ایجاد افکت برف */
-        
-        .snowflake {
-            position: absolute;
-            color: #fff;
-            font-size: 1.5rem;
-            pointer-events: none;
-            user-select: none;
-            animation: snow 10s linear infinite;
-        }
-        /* انیمیشن برف */
-        
-        @keyframes snow {
-            0% {
-                transform: translateY(-670vh) rotate(0deg);
-                /* شروع از بالای صفحه */
+            .gallery-title {
+                font-size: 1.8rem;
             }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                /* حرکت به پایین صفحه */
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
-        }
-        /* دکمه کریسمس */
-        
-        .christmas-text {
-            color: #ff4b5c;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
-        }
-        
-        .christmas-text:hover {
-            color: #fff;
-            text-shadow: 0 0 20px #ff4b5c, 0 0 30px #ff4b5c, 0 0 40px #ff4b5c;
-        }
-        /* به‌روزرسانی نمایش برف و نوشته‌ها در موبایل */
-        
-        @media (max-width: 768px) {
-            .snowflake {
-                font-size: 1rem;
+            .gallery-img {
+                height: 250px;
             }
-        }
-    </style>
-
-    <style>
-        /* برای موبایل: */
-        /* برای موبایل: */
-        
-        @media (max-width: 768px) {
-            .snowflake {
-                font-size: 1.2em;
-                /* اندازه کوچک‌تر برای موبایل */
-                top: -50px;
-                /* موقعیت شروع برف‌ها بالاتر می‌شود */
-                position: fixed;
-                /* برف‌ها ثابت در صفحه باقی می‌مانند */
-                z-index: 9999;
-                /* قرار دادن برف‌ها در بالاترین لایه */
-                pointer-events: none;
-                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
-        }
-        /* برای دستگاه‌های خیلی کوچک */
-        
-        @media (max-width: 480px) {
-            .snowflake {
-                font-size: 1em;
-                /* اندازه خیلی کوچک‌تر */
-                top: -70px;
-                /* موقعیت شروع برف‌ها حتی بالاتر */
-                position: fixed;
-                /* برف‌ها ثابت در صفحه باقی می‌مانند */
-                z-index: 9999;
-                /* قرار دادن برف‌ها در بالاترین لایه */
-                pointer-events: none;
-                /* جلوگیری از تداخل برف‌ها با تعاملات صفحه */
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
 </head>
 
 <body>
+    <!-- Leaves Animation -->
+    <div class="leaf-container" id="leafContainer"></div>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <div class="lightbox-info" id="lightboxInfo"></div>
+        </div>
+    </div>
 
-    <header>
-        <div class="logo">My Blog</div>
-        <nav>
-            <ul>
-                <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank">Spotify</a></li>
-                <li><a href="https://t.me/Dark_Night_123" target="_blank">Telegram</a></li>
-                <li><a href="index.html" target="_blank">home</a></li>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" title="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-            </ul>
-            <div class="toggle" id="toggle">
-                <div class="circle"></div>
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-blog"></i>
+                <span>My Blog</span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#blog" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="index.html#media" class="nav-link"><i class="fas fa-play-circle"></i> Media</a></li>
+                    <li><a href="index.html#music" class="nav-link"><i class="fas fa-music"></i> Music</a></li>
+                    <li><a href="https://open.spotify.com/playlist/1Pba569w7VHjAjpNsfabN3" target="_blank" class="nav-link"><i class="fab fa-spotify"></i> Spotify</a></li>
+                    <li><a href="https://t.me/Dark_Night_123" target="_blank" class="nav-link"><i class="fab fa-telegram"></i> Telegram</a></li>
+                    <li><a href="gallery.html" class="nav-link active"><i class="fas fa-images"></i> Gallery</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-            </div>
-        </nav>
+        </div>
     </header>
 
+    <!-- Gallery Section -->
     <section class="gallery-section">
-        <h2>Image Gallery</h2>
-        <div class="gallery">
-            <div class="gallery-item">
-                <a href="im1.jpg" download>Download</a>
-                <img src="im1.jpg" alt="Image 1">
+        <div class="container">
+            <div class="gallery-header">
+                <h1 class="gallery-title">Image Gallery</h1>
+                <p class="gallery-subtitle">A collection of dark and atmospheric images curated to inspire creativity and reflection.</p>
             </div>
-            <div class="gallery-item">
-                <a href="im2.jpg" download>Download</a>
-                <img src="im2.jpg" alt="Image 2">
-            </div>
-            <div class="gallery-item">
-                <a href="im3.jpg" download>Download</a>
-                <img src="im3.jpg" alt="Image 3">
-            </div>
-            <div class="gallery-item">
-                <a href="im4.jpg" download>Download</a>
-                <img src="im4.jpg" alt="Image 4">
-            </div>
-            <div class="gallery-item">
-                <a href="im5.jpg" download>Download</a>
-                <img src="im5.jpg" alt="Image 5">
-            </div>
-            <div class="gallery-item">
-                <a href="im6.jpg" download>Download</a>
-                <img src="im6.jpg" alt="Image 6">
-            </div>
-            <div class="gallery-item">
-                <a href="im7.jpg" download>Download</a>
-                <img src="im7.jpg" alt="Image 7">
-            </div>
-            <div class="gallery-item">
-                <a href="im8.jpg" download>Download</a>
-                <img src="im8.jpg" alt="Image 8">
-            </div>
-            <div class="gallery-item">
-                <a href="im9.jpg" download>Download</a>
-                <img src="im9.jpg" alt="Image 9">
-            </div>
-            <div class="gallery-item">
-                <a href="im10.jpg" download>Download</a>
-                <img src="im10.jpg" alt="Image 10">
-            </div>
-            <div class="gallery-item">
-                <a href="im11.jpg" download>Download</a>
-                <img src="im11.jpg" alt="Image 11">
-            </div>
-            <div class="gallery-item">
-                <a href="im12.jpg" download>Download</a>
-                <img src="im12.jpg" alt="Image 12">
-            </div>
-            <div class="gallery-item">
-                <a href="im13.jpg" download>Download</a>
-                <img src="im13.jpg" alt="Image 13">
-            </div>
-            <div class="gallery-item">
-                <a href="im14.jpg" download>Download</a>
-                <img src="im14.jpg" alt="Image 14">
-            </div>
-            <div class="gallery-item">
-                <a href="im15.jpg" download>Download</a>
-                <img src="im15.jpg" alt="Image 15">
-            </div>
-            <div class="gallery-item">
-                <a href="im16.jpg" download>Download</a>
-                <img src="im16.jpg" alt="Image 16">
-            </div>
-            <div class="gallery-item">
-                <a href="im17.jpg" download>Download</a>
-                <img src="im17.jpg" alt="Image 17">
-            </div>
-            <div class="gallery-item">
-                <a href="im18.jpg" download>Download</a>
-                <img src="im18.jpg" alt="Image 18">
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be added by JavaScript -->
             </div>
         </div>
     </section>
 
-    <div id="img1" class="lightbox">
-        <a href="im1.jpg" class="close-btn">&times;</a>
-        <img src="im1.jpg" alt="Image 1">
-    </div>
-    <div id="img2" class="lightbox">
-        <a href="im2.jpg" class="close-btn">&times;</a>
-        <img src="im2.jpg" alt="Image 2">
-    </div>
-    <div id="img3" class="lightbox">
-        <a href="im3.jpg" class="close-btn">&times;</a>
-        <img src="im3.jpg" alt="Image 3">
-    </div>
-    <div id="img4" class="lightbox">
-        <a href="im4.jpg" class="close-btn">&times;</a>
-        <img src="im4.jpg" alt="Image 4">
-    </div>
-    <div id="img5" class="lightbox">
-        <a href="im5.jpg" class="close-btn">&times;</a>
-        <img src="im5.jpg" alt="Image 5">
-    </div>
-    <div id="img6" class="lightbox">
-        <a href="im6.jpg" class="close-btn">&times;</a>
-        <img src="im6.jpg" alt="Image 6">
-    </div>
-    <div id="img7" class="lightbox">
-        <a href="im7.jpg" class="close-btn">&times;</a>
-        <img src="im7.jpg" alt="Image 7">
-    </div>
-    <div id="img8" class="lightbox">
-        <a href="im8.jpg" class="close-btn">&times;</a>
-        <img src="im8.jpg" alt="Image 8">
-    </div>
-    <div id="img9" class="lightbox">
-        <a href="im9.jpg" class="close-btn">&times;</a>
-        <img src="im9.jpg" alt="Image 9">
-    </div>
-    <div id="img10" class="lightbox">
-        <a href="im10.jpg" class="close-btn">&times;</a>
-        <img src="im10.jpg" alt="Image 10">
-    </div>
-    <div id="img11" class="lightbox">
-        <a href="im11.jpg" class="close-btn">&times;</a>
-        <img src="im11.jpg" alt="Image 11">
-    </div>
-    <div id="img12" class="lightbox">
-        <a href="im12.jpg" class="close-btn">&times;</a>
-        <img src="im12.jpg" alt="Image 12">
-    </div>
-    <div id="img13" class="lightbox">
-        <a href="im13.jpg" class="close-btn">&times;</a>
-        <img src="im13.jpg" alt="Image 13">
-    </div>
-    <div id="img14" class="lightbox">
-        <a href="im14.jpg" class="close-btn">&times;</a>
-        <img src="im14.jpg" alt="Image 14">
-    </div>
-    <div id="img15" class="lightbox">
-        <a href="im15.jpg" class="close-btn">&times;</a>
-        <img src="im15.jpg" alt="Image 15">
-    </div>
-    <div id="img16" class="lightbox">
-        <a href="im16.jpg" class="close-btn">&times;</a>
-        <img src="im16.jpg" alt="Image 16">
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About This Gallery</h4>
+                    <p class="footer-text">
+                        A curated collection of dark, atmospheric, and inspiring images. Each image tells a story and evokes emotions through visual artistry.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://t.me/Dark_Night_123" target="_blank" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
 
-    </div>
-    <div id="img17" class="lightbox">
-        <a href="im17.jpg" class="close-btn">&times;</a>
-        <img src="im17.jpg" alt="Image 17">
-    </div>
-    <div id="img18" class="lightbox">
-        <a href="im18.jpg" class="close-btn">&times;</a>
-        <img src="im18.jpg" alt="Image 18">
-    </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home Page</a></li>
+                        <li><a href="index.html#blog"><i class="fas fa-chevron-right"></i> All Stories</a></li>
+                        <li><a href="index.html#music"><i class="fas fa-chevron-right"></i> Music Player</a></li>
+                        <li><a href="index.html#media"><i class="fas fa-chevron-right"></i> Media Content</a></li>
+                        <li><a href="index.html#comments"><i class="fas fa-chevron-right"></i> Leave Comment</a></li>
+                    </ul>
+                </div>
 
+                <div class="footer-column">
+                    <h4>Gallery Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-moon"></i> Dark Aesthetics</a></li>
+                        <li><a href="#"><i class="fas fa-palette"></i> Artistic Visions</a></li>
+                        <li><a href="#"><i class="fas fa-mountain"></i> Atmospheric Landscapes</a></li>
+                        <li><a href="#"><i class="fas fa-lightbulb"></i> Inspirational Works</a></li>
+                    </ul>
+                </div>
+            </div>
 
-
-    <footer>
-        <p>Designed and developed by AMIR FN- 2024</p>
+            <div class="footer-bottom">
+                <p>© 2024 My Blog. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by Amir FN</p>
+            </div>
+        </div>
     </footer>
+
     <script>
-        // Smooth scroll for all links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Day-Night Toggle Functionality
-        const toggle = document.getElementById('toggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('night-mode');
-        });
-
-        // Example of animation on scroll (if required)
-        window.addEventListener('scroll', function() {
-            const bioSection = document.querySelector('.bio-section');
-            if (!bioSection) return; // Skip if .bio-section doesn't exist
-
-            const sectionPos = bioSection.getBoundingClientRect().top;
-            const screenPos = window.innerHeight / 1.3;
-
-            if (sectionPos < screenPos) {
-                bioSection.classList.add('appear');
+        // ===== LEAVES ANIMATION =====
+        class LeavesAnimation {
+            constructor() {
+                this.container = document.getElementById('leafContainer');
+                this.leaves = ['🍁', '🍂'];
+                this.maxLeaves = 25;
+                this.animationDuration = 20000;
+                this.init();
             }
-        });
-    </script>
-    <script>
-        // ایجاد برف در صفحه
-        function createSnowflakes() {
-            const snowflakes = ['❄', '❆', '✦', '✸', '❉'];
-            const numberOfSnowflakes = 70;
-            const snowContainer = document.body;
 
-            for (let i = 0; i < numberOfSnowflakes; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerText = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                snowContainer.appendChild(snowflake);
+            init() {
+                this.createLeaves();
+                setInterval(() => this.refreshLeaves(), this.animationDuration);
+            }
+
+            createLeaves() {
+                this.container.innerHTML = '';
+                for (let i = 0; i < this.maxLeaves; i++) {
+                    setTimeout(() => this.createLeaf(), Math.random() * 3000);
+                }
+            }
+
+            createLeaf() {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                const leafType = this.leaves[Math.floor(Math.random() * this.leaves.length)];
+                leaf.textContent = leafType;
+
+                const startX = Math.random() * 100;
+                const endX = startX + (Math.random() * 30 - 15);
+                const size = Math.random() * 20 + 20;
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 5;
+                const rotation = Math.random() * 720;
+
+                leaf.style.left = `${startX}vw`;
+                leaf.style.fontSize = `${size}px`;
+                leaf.style.animationDuration = `${duration}s`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.opacity = Math.random() * 0.5 + 0.3;
+                leaf.style.filter = `hue-rotate(${Math.random() * 60}deg)`;
+
+                leaf.animate([{
+                    transform: `translate(0, 0) rotate(0deg)`,
+                    opacity: 0.8
+                }, {
+                    transform: `translate(${endX - startX}vw, 100vh) rotate(${rotation}deg)`,
+                    opacity: 0
+                }], {
+                    duration: duration * 1000,
+                    delay: delay * 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    fill: 'forwards'
+                });
+
+                this.container.appendChild(leaf);
+                setTimeout(() => leaf.remove(), (duration + delay) * 1000);
+            }
+
+            refreshLeaves() {
+                this.createLeaves();
             }
         }
 
-        // فعال‌سازی برف
-        createSnowflakes();
+        // ===== GALLERY SYSTEM =====
+        class GallerySystem {
+            constructor() {
+                this.galleryGrid = document.getElementById('galleryGrid');
+                this.lightbox = document.getElementById('lightbox');
+                this.lightboxImg = document.getElementById('lightboxImg');
+                this.lightboxInfo = document.getElementById('lightboxInfo');
+                this.lightboxClose = document.getElementById('lightboxClose');
+                this.lightboxPrev = document.getElementById('lightboxPrev');
+                this.lightboxNext = document.getElementById('lightboxNext');
+                this.currentImageIndex = 0;
+                this.images = [];
+                this.init();
+            }
+
+            init() {
+                this.loadImages();
+                this.setupEventListeners();
+                this.setupIntersectionObserver();
+            }
+
+            loadImages() {
+                // لیست تصاویر
+                this.images = [{
+                    src: 'im1.jpg',
+                    title: 'Midnight Forest',
+                    category: 'Dark Aesthetics'
+                }, {
+                    src: 'im2.jpg',
+                    title: 'Shadow Dance',
+                    category: 'Artistic Visions'
+                }, {
+                    src: 'im3.jpg',
+                    title: 'Crimson Horizon',
+                    category: 'Atmospheric Landscapes'
+                }, {
+                    src: 'im4.jpg',
+                    title: 'Ethereal Dreams',
+                    category: 'Inspirational Works'
+                }, {
+                    src: 'im5.jpg',
+                    title: 'Obsidian City',
+                    category: 'Dark Aesthetics'
+                }, {
+                    src: 'im6.jpg',
+                    title: 'Velvet Night',
+                    category: 'Artistic Visions'
+                }, {
+                    src: 'im7.jpg',
+                    title: 'Starlit Path',
+                    category: 'Atmospheric Landscapes'
+                }, {
+                    src: 'im8.jpg',
+                    title: 'Mystic River',
+                    category: 'Inspirational Works'
+                }, {
+                    src: 'im9.jpg',
+                    title: 'Shadow Play',
+                    category: 'Dark Aesthetics'
+                }, {
+                    src: 'im10.jpg',
+                    title: 'Crystal Darkness',
+                    category: 'Artistic Visions'
+                }, {
+                    src: 'im11.jpg',
+                    title: 'Moonlit Silence',
+                    category: 'Atmospheric Landscapes'
+                }, {
+                    src: 'im12.jpg',
+                    title: 'Echoes of Night',
+                    category: 'Inspirational Works'
+                }, {
+                    src: 'im13.jpg',
+                    title: 'Deep Ocean',
+                    category: 'Dark Aesthetics'
+                }, {
+                    src: 'im14.jpg',
+                    title: 'Velvet Sky',
+                    category: 'Artistic Visions'
+                }, {
+                    src: 'im15.jpg',
+                    title: 'Mountain Shadows',
+                    category: 'Atmospheric Landscapes'
+                }, {
+                    src: 'im16.jpg',
+                    title: 'Dream Canvas',
+                    category: 'Inspirational Works'
+                }, {
+                    src: 'im17.jpg',
+                    title: 'Night Bloom',
+                    category: 'Dark Aesthetics'
+                }, {
+                    src: 'im18.jpg',
+                    title: 'Silent Storm',
+                    category: 'Artistic Visions'
+                }];
+
+                this.renderGallery();
+            }
+
+            renderGallery() {
+                this.galleryGrid.innerHTML = '';
+
+                this.images.forEach((image, index) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.style.animationDelay = `${index * 0.1}s`;
+
+                    galleryItem.innerHTML = `
+                        <img src="${image.src}" alt="${image.title}" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>${image.title}</h3>
+                                <p>${image.category}</p>
+                                <div class="gallery-actions">
+                                    <a href="${image.src}" download="${image.title}.jpg" class="gallery-btn">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <button class="gallery-btn view" data-index="${index}">
+                                        <i class="fas fa-expand"></i> View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    this.galleryGrid.appendChild(galleryItem);
+                });
+            }
+
+            setupEventListeners() {
+                // View buttons
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.gallery-btn.view')) {
+                        const index = parseInt(e.target.closest('.gallery-btn.view').dataset.index);
+                        this.openLightbox(index);
+                    }
+                });
+
+                // Lightbox controls
+                this.lightboxClose.addEventListener('click', () => this.closeLightbox());
+                this.lightboxPrev.addEventListener('click', () => this.navigate(-1));
+                this.lightboxNext.addEventListener('click', () => this.navigate(1));
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (!this.lightbox.classList.contains('active')) return;
+
+                    switch (e.key) {
+                        case 'Escape':
+                            this.closeLightbox();
+                            break;
+                        case 'ArrowLeft':
+                            this.navigate(-1);
+                            break;
+                        case 'ArrowRight':
+                            this.navigate(1);
+                            break;
+                    }
+                });
+
+                // Click outside to close
+                this.lightbox.addEventListener('click', (e) => {
+                    if (e.target === this.lightbox) {
+                        this.closeLightbox();
+                    }
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    observer.observe(item);
+                });
+            }
+
+            openLightbox(index) {
+                this.currentImageIndex = index;
+                const image = this.images[index];
+
+                this.lightboxImg.src = image.src;
+                this.lightboxImg.alt = image.title;
+                this.lightboxInfo.textContent = `${image.title} - ${image.category}`;
+
+                this.lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeLightbox() {
+                this.lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            navigate(direction) {
+                this.currentImageIndex += direction;
+
+                // Wrap around
+                if (this.currentImageIndex < 0) {
+                    this.currentImageIndex = this.images.length - 1;
+                } else if (this.currentImageIndex >= this.images.length) {
+                    this.currentImageIndex = 0;
+                }
+
+                const image = this.images[this.currentImageIndex];
+                this.lightboxImg.src = image.src;
+                this.lightboxImg.alt = image.title;
+                this.lightboxInfo.textContent = `${image.title} - ${image.category}`;
+
+                // Smooth transition
+                this.lightboxImg.style.opacity = 0;
+                setTimeout(() => {
+                    this.lightboxImg.style.opacity = 1;
+                }, 50);
+            }
+        }
+
+        // ===== MAIN APPLICATION =====
+        class GalleryPage {
+            constructor() {
+                this.leavesAnimation = new LeavesAnimation();
+                this.gallerySystem = new GallerySystem();
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.setupScrollEffects();
+                this.loadTheme();
+            }
+
+            setupEventListeners() {
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
+
+                // Mobile menu
+                document.getElementById('mobileMenuBtn').addEventListener('click', () => this.toggleMobileMenu());
+
+                // Scroll to top
+                document.getElementById('scrollTop').addEventListener('click', () => this.scrollToTop());
+
+                // Smooth scroll for navigation links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = anchor.getAttribute('href');
+                        if (targetId === '#') return;
+
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            document.getElementById('mainNav').classList.remove('active');
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const nav = document.getElementById('mainNav');
+                    const menuBtn = document.getElementById('mobileMenuBtn');
+
+                    if (nav.classList.contains('active') &&
+                        !nav.contains(e.target) &&
+                        !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                    }
+                });
+            }
+
+            setupScrollEffects() {
+                let lastScrollTop = 0;
+                const header = document.getElementById('mainHeader');
+                const scrollTopBtn = document.getElementById('scrollTop');
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Header scroll effect
+                    if (scrollTop > 100) {
+                        header.classList.add('header-scrolled');
+                    } else {
+                        header.classList.remove('header-scrolled');
+                    }
+
+                    // Scroll to top button
+                    if (scrollTop > 300) {
+                        scrollTopBtn.classList.add('visible');
+                    } else {
+                        scrollTopBtn.classList.remove('visible');
+                    }
+
+                    lastScrollTop = scrollTop;
+                });
+            }
+
+            loadTheme() {
+                const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('night-mode');
+                    document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            }
+
+            toggleTheme() {
+                const body = document.body;
+                const themeToggle = document.getElementById('themeToggle');
+
+                body.classList.toggle('night-mode');
+
+                if (body.classList.contains('night-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('blog_theme', 'dark');
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('blog_theme', 'light');
+                }
+            }
+
+            toggleMobileMenu() {
+                const nav = document.getElementById('mainNav');
+                nav.classList.toggle('active');
+                const menuIcon = document.querySelector('#mobileMenuBtn i');
+                menuIcon.className = nav.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+            }
+
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ===== INITIALIZE APPLICATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            window.galleryPage = new GalleryPage();
+        });
     </script>
 </body>
 

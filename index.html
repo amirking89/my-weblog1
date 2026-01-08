@@ -68,9 +68,9 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* ===== LEAVES ANIMATION ===== */
         
-        .leaf-container {
+        /* ===== LION & SUN ANIMATION ===== */
+        .lion-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -81,27 +81,27 @@
             overflow: hidden;
         }
         
-        .leaf {
+        .lion-sun {
             position: absolute;
             top: -50px;
-            font-size: 24px;
-            opacity: 0.8;
+            font-size: 20px;
+            opacity: 0.6;
             animation: fall linear forwards;
             filter: drop-shadow(0 0 5px rgba(247, 192, 138, 0.3));
             user-select: none;
         }
         
-        .leaf:nth-child(3n) {
+        .lion-sun:nth-child(3n) {
             color: #ff6b6b;
             animation-delay: 0s;
         }
         
-        .leaf:nth-child(3n+1) {
+        .lion-sun:nth-child(3n+1) {
             color: #4ecdc4;
             animation-delay: 1s;
         }
         
-        .leaf:nth-child(3n+2) {
+        .lion-sun:nth-child(3n+2) {
             color: #ffe66d;
             animation-delay: 2s;
         }
@@ -112,6 +112,7 @@
                 opacity: 0;
             }
         }
+        
         /* ===== HEADER ===== */
         
         .main-header {
@@ -262,6 +263,7 @@
             cursor: pointer;
             padding: 5px;
         }
+        
         /* ===== HERO SECTION ===== */
         
         .hero-section {
@@ -280,9 +282,35 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920') center/cover;
+            z-index: -2;
+            transition: opacity 1.5s ease;
+        }
+        
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: brightness(0.6) contrast(1.1);
+        }
+        
+        .hero-bg-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 50% 40%,
+                transparent 0%,
+                transparent 50%,
+                rgba(10, 10, 10, 0.9) 80%,
+                rgba(10, 10, 10, 0.95) 100%
+            );
             z-index: -1;
-            filter: brightness(0.4);
         }
         
         .hero-content {
@@ -303,6 +331,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         
         @keyframes fadeUp {
@@ -314,13 +343,14 @@
         
         .hero-subtitle {
             font-size: 1.4rem;
-            color: var(--text-gray);
+            color: var(--text-light);
             max-width: 700px;
             margin: 0 auto 40px;
             line-height: 1.6;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease 0.3s forwards;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         
         .hero-btns {
@@ -382,6 +412,7 @@
             background: var(--accent);
             color: var(--primary-dark);
         }
+        
         /* ===== BLOG POSTS ===== */
         
         .posts-section {
@@ -544,6 +575,7 @@
             font-size: 1rem;
             line-height: 1.7;
         }
+        
         /* دکمه ادامه مطلب */
         
         .read-more-btn {
@@ -626,6 +658,7 @@
             padding: 15px 50px;
             font-size: 1.1rem;
         }
+        
         /* ===== ABOUT SECTION ===== */
         
         .about-section {
@@ -654,6 +687,7 @@
             line-height: 1.8;
             margin-bottom: 40px;
         }
+        
         /* ===== MEDIA SECTION ===== */
         
         .media-section {
@@ -808,6 +842,7 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
+        
         /* ===== MUSIC PLAYER SECTION ===== */
         
         .music-section {
@@ -1058,6 +1093,7 @@
             color: var(--text-gray);
             font-size: 0.9rem;
         }
+        
         /* ===== COMMENTS SECTION ===== */
         
         .comments-section {
@@ -1235,6 +1271,7 @@
             line-height: 1.7;
             font-size: 1.05rem;
         }
+        
         /* ===== FOOTER ===== */
         
         .main-footer {
@@ -1332,6 +1369,7 @@
             color: var(--text-gray);
             font-size: 0.95rem;
         }
+        
         /* ===== LANGUAGE SWITCHER ===== */
         
         .lang-switcher {
@@ -1361,6 +1399,7 @@
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 30px rgba(247, 192, 138, 0.4);
         }
+        
         /* ===== NOTIFICATION ===== */
         
         .notification {
@@ -1394,6 +1433,7 @@
         .notification i {
             font-size: 1.3rem;
         }
+        
         /* ===== SCROLL TO TOP ===== */
         
         .scroll-top {
@@ -1428,6 +1468,7 @@
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 10px 20px rgba(247, 192, 138, 0.4);
         }
+        
         /* ===== RESPONSIVE DESIGN ===== */
         
         @media (max-width: 1200px) {
@@ -1568,6 +1609,14 @@
                 width: 200px;
                 height: 200px;
             }
+            
+            /* نمایش تصویر موبایل در صفحه‌های کوچک */
+            .hero-bg-image.pc-image {
+                display: none;
+            }
+            .hero-bg-image.mobile-image {
+                display: block;
+            }
         }
         
         @media (max-width: 576px) {
@@ -1676,6 +1725,7 @@
                 height: 150px;
             }
         }
+        
         /* ===== UTILITY CLASSES ===== */
         
         .text-center {
@@ -1750,12 +1800,17 @@
                 transform: rotate(360deg);
             }
         }
+        
+        /* مخفی کردن تصویر موبایل در حالت پیش‌فرض */
+        .hero-bg-image.mobile-image {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Leaves Animation -->
-    <div class="leaf-container" id="leafContainer"></div>
+    <!-- Lion & Sun Animation -->
+    <div class="lion-container" id="lionContainer"></div>
 
     <!-- Notification -->
     <div class="notification" id="notification">
@@ -1811,9 +1866,15 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <div class="hero-bg"></div>
+        <div class="hero-bg">
+            <!-- تصویر برای PC -->
+            <img src="imagede1.jpg" alt="Background" class="hero-bg-image pc-image">
+            <!-- تصویر برای موبایل -->
+            <img src="imagemo1.jpg" alt="Background" class="hero-bg-image mobile-image">
+            <div class="hero-bg-mask"></div>
+        </div>
         <div class="container hero-content">
-            <h1 class="hero-title" id="heroTitle">My Blog, A Place to Share Ideas</h1>
+            <h1 class="hero-title" id="heroTitle">My Blog, A Place to Share Ideas<br>Freedom</h1>
             <p class="hero-subtitle" id="heroSubtitle">Thoughts, stories, and opinions from the shadows. Dive into a world of creativity and inspiration.</p>
             <div class="hero-btns">
                 <a href="#blog" class="btn" id="heroBtn">
@@ -2591,51 +2652,51 @@
             }
         }
 
-        // ===== LEAVES ANIMATION =====
-        class LeavesAnimation {
+        // ===== LION & SUN ANIMATION =====
+        class LionAnimation {
             constructor() {
-                this.container = document.getElementById('leafContainer');
-                this.leaves = ['🍁', '🍂'];
-                this.maxLeaves = 25;
-                this.animationDuration = 20000;
+                this.container = document.getElementById('lionContainer');
+                this.lions = ['❄️', '☀️']; // شیر و خورشید
+                this.maxLions = 12; // تعداد کمتر از برگ برف
+                this.animationDuration = 30000; // مدت زمان بیشتر
                 this.init();
             }
 
             init() {
-                this.createLeaves();
-                setInterval(() => this.refreshLeaves(), this.animationDuration);
+                this.createLions();
+                setInterval(() => this.refreshLions(), this.animationDuration);
             }
 
-            createLeaves() {
+            createLions() {
                 this.container.innerHTML = '';
-                for (let i = 0; i < this.maxLeaves; i++) {
-                    setTimeout(() => this.createLeaf(), Math.random() * 3000);
+                for (let i = 0; i < this.maxLions; i++) {
+                    setTimeout(() => this.createLion(), Math.random() * 5000); // فاصله زمانی بیشتر
                 }
             }
 
-            createLeaf() {
-                const leaf = document.createElement('div');
-                leaf.className = 'leaf';
-                const leafType = this.leaves[Math.floor(Math.random() * this.leaves.length)];
-                leaf.textContent = leafType;
+            createLion() {
+                const lion = document.createElement('div');
+                lion.className = 'lion-sun';
+                const lionType = this.lions[Math.floor(Math.random() * this.lions.length)];
+                lion.textContent = lionType;
 
                 const startX = Math.random() * 100;
-                const endX = startX + (Math.random() * 30 - 15);
-                const size = Math.random() * 20 + 20;
-                const duration = Math.random() * 10 + 15;
-                const delay = Math.random() * 5;
-                const rotation = Math.random() * 720;
+                const endX = startX + (Math.random() * 20 - 10);
+                const size = Math.random() * 25 + 20;
+                const duration = Math.random() * 15 + 20; // مدت زمان بیشتر
+                const delay = Math.random() * 8; // تاخیر بیشتر
+                const rotation = Math.random() * 360;
 
-                leaf.style.left = `${startX}vw`;
-                leaf.style.fontSize = `${size}px`;
-                leaf.style.animationDuration = `${duration}s`;
-                leaf.style.animationDelay = `${delay}s`;
-                leaf.style.opacity = Math.random() * 0.5 + 0.3;
-                leaf.style.filter = `hue-rotate(${Math.random() * 60}deg)`;
+                lion.style.left = `${startX}vw`;
+                lion.style.fontSize = `${size}px`;
+                lion.style.animationDuration = `${duration}s`;
+                lion.style.animationDelay = `${delay}s`;
+                lion.style.opacity = Math.random() * 0.4 + 0.3; // کمی کمرنگ‌تر
+                lion.style.filter = `hue-rotate(${Math.random() * 30}deg) drop-shadow(0 0 5px rgba(255, 165, 0, 0.3))`;
 
-                leaf.animate([{
+                lion.animate([{
                     transform: `translate(0, 0) rotate(0deg)`,
-                    opacity: 0.8
+                    opacity: 0.6
                 }, {
                     transform: `translate(${endX - startX}vw, 100vh) rotate(${rotation}deg)`,
                     opacity: 0
@@ -2646,12 +2707,12 @@
                     fill: 'forwards'
                 });
 
-                this.container.appendChild(leaf);
-                setTimeout(() => leaf.remove(), (duration + delay) * 1000);
+                this.container.appendChild(lion);
+                setTimeout(() => lion.remove(), (duration + delay) * 1000);
             }
 
-            refreshLeaves() {
-                this.createLeaves();
+            refreshLions() {
+                this.createLions();
             }
         }
 
@@ -3092,7 +3153,7 @@
         // ===== MAIN APPLICATION =====
         class BlogApplication {
             constructor() {
-                this.leavesAnimation = new LeavesAnimation();
+                this.lionAnimation = new LionAnimation();
                 this.notification = new NotificationSystem();
                 this.commentSystem = new CommentSystem();
                 this.languageSystem = new LanguageSystem();
@@ -3215,9 +3276,9 @@
                     }
 
                     // Parallax effect for hero
-                    const heroBg = document.querySelector('.hero-bg');
+                    const heroBg = document.querySelector('.hero-bg-image');
                     if (heroBg) {
-                        heroBg.style.transform = `translateY(${scrollTop * 0.5}px)`;
+                        heroBg.style.transform = `translateY(${scrollTop * 0.3}px)`;
                     }
 
                     lastScrollTop = scrollTop;
